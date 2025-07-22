@@ -1,0 +1,32 @@
+{
+  "name": "anydle",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/drawer": "^7.5.3",
+    "@react-navigation/native": "^7.1.14",
+    "expo": "~53.0.20",
+    "expo-constants": "~17.1.7",
+    "expo-linking": "~7.1.7",
+    "expo-router": "~5.1.4",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-native": "0.79.5",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-paper": "^5.14.5",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-screens": "~4.11.1",
+    "react-native-toast-message": "^2.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
