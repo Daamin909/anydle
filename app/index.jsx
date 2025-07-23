@@ -7,6 +7,9 @@ const index = () => {
     <View style={styles.container}>
       <LetterBoxes />
       <Keyboard />
+      <View>
+        
+      </View>
     </View>
   );
 };

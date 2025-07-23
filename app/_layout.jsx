@@ -1,7 +1,7 @@
 import Toast from "react-native-toast-message";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 
 const _layout = () => {
   return (
@@ -12,6 +12,8 @@ const _layout = () => {
             drawerStyle: {
               backgroundColor: "#121213",
             },
+            // TODO add settings, account and about icon
+            headerRight: () => (<Button title="Custom" onPress={() => console.log('Pressed')} />),
             headerStyle: {
               backgroundColor: "#121213",
             },
