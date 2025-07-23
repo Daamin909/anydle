@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const Key = ({ letter }) => {
+const Key = ({ letter, handlePress }) => {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={() => handlePress(letter)}>
       <Text style={styles.text}>{letter}</Text>
     </TouchableOpacity>
   );

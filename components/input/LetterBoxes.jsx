@@ -1,8 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 import Box from "./Box";
 
-const LetterBoxes = () => {
-  const words = ["aroma", "puked", "     ", "     ", "     ", "     "];
+const LetterBoxes = ({ words, setWords }) => {
   return (
     <View style={styles.container}>
       {words.map((word, index_1) => {
