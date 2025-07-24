@@ -5,6 +5,9 @@ const LetterBoxes = ({ words, setWords }) => {
   return (
     <View style={styles.container}>
       {words.map((word, index_1) => {
+        if (!word) {
+          word = "     ";
+        }
         const letters = word.split("");
         return (
           <View key={index_1} style={styles.row}>

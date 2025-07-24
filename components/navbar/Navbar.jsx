@@ -6,10 +6,7 @@ const Navbar = () => {
     <View style={styles.container}>
       <IconButton icon={"cog"} iconColor="#e3e3e3" />
       <IconButton icon={"account"} iconColor="#e3e3e3" />
-      <TouchableOpacity
-        onPress={() => console.log("pressed")}
-        style={styles.button}
-      >
+      <TouchableOpacity onPress={() => null} style={styles.button}>
         <Text style={styles.text}>Subscribe</Text>
       </TouchableOpacity>
     </View>
