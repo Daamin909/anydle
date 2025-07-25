@@ -22,7 +22,9 @@ const Box = ({ letter, bgStyles, fgStyles }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#3A3A3C",
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "#3a3a3c",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

@@ -1,7 +1,15 @@
 import { StyleSheet, View, Text } from "react-native";
 import Box from "./Box";
+import Animated from "react-native-reanimated";
 
-const LetterBoxes = ({ words, setWords, guesses, setGuesses }) => {
+const LetterBoxes = ({
+  words,
+  setWords,
+  guesses,
+  setGuesses,
+  rStyle,
+  shakenRowNumber,
+}) => {
   return (
     <View style={styles.container}>
       {words.map((word, index_1) => {
@@ -11,11 +19,14 @@ const LetterBoxes = ({ words, setWords, guesses, setGuesses }) => {
           }
           const letters = word.split("");
           return (
-            <View key={index_1} style={styles.row}>
+            <Animated.View
+              key={index_1}
+              style={[styles.row, shakenRowNumber == index_1 ? rStyle : {}]}
+            >
               {letters.map((letter, index) => (
                 <Box letter={letter} key={index} />
               ))}
-            </View>
+            </Animated.View>
           );
         } else {
           const letters = guesses[index_1].split("");
@@ -49,9 +60,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 5,
   },
-  G_bg: { backgroundColor: "#538d4e" },
-  Y_bg: { backgroundColor: "#b59f3b" },
-  B_bg: { backgroundColor: "#3a3a3c" },
+  G_bg: { backgroundColor: "#538d4e", borderWidth: 0 },
+  Y_bg: { backgroundColor: "#b59f3b", borderWidth: 0 },
+  B_bg: { backgroundColor: "#3a3a3c", borderWidth: 0 },
   G_fg: { color: "#f8f8f8" },
   Y_fg: { color: "#f8f8f8" },
   B_fg: { color: "#fff" },

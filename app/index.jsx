@@ -1,18 +1,33 @@
 import { StyleSheet, View, Text } from "react-native";
 import LetterBoxes from "../components/input/LetterBoxes";
 import Keyboard from "../components/input/Keyboard";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import evaluateGuess from "../scripts/evaluate";
+import getRandomWord from "../scripts/getRandomWord";
+import isValidWord from "../scripts/isValidWord";
+import { useAnimatedShake } from "../hooks/useAnimatedShake";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
   const [guesses, setGuesses] = useState([null, null, null, null, null, null]);
   const [currentWord, setCurrentWord] = useState(0);
-  const [wordle, setWordle] = useState("QUAKE");
+  const [wordle, setWordle] = useState(getRandomWord().toUpperCase());
+  const [shakenRowNumber, setShakenRowNumber] = useState(null);
+  const { shake, rStyle, isShaking } = useAnimatedShake();
+
+  // useEffect(() => {
+  //   shake();
+  // }, [shakenRowNumber]);
+
   const handlePress = (key) => {
     if (key == "Enter") {
       if (words[currentWord]?.trim().length != 5) {
-        // ? will we add a shake effect if enter cant be pressed yet
+        setShakenRowNumber(currentWord);
+        shake();
+        return;
+      } else if (!isValidWord(words[currentWord]?.trim())) {
+        setShakenRowNumber(currentWord);
+        shake();
         return;
       }
       const guess = evaluateGuess(words[currentWord], wordle);
@@ -22,7 +37,6 @@ const index = () => {
         return updated;
       });
       if (currentWord == 6) {
-        // disableKeyboard()
         return;
       }
       setCurrentWord((prev) => prev + 1);
@@ -64,6 +78,8 @@ const index = () => {
         setWords={setWords}
         guesses={guesses}
         setGuesses={setGuesses}
+        rStyle={rStyle}
+        shakenRowNumber={shakenRowNumber}
       />
       <Keyboard
         handlePress={handlePress}
