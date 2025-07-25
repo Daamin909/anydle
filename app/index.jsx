@@ -16,7 +16,6 @@ const index = () => {
         return;
       }
       const guess = evaluateGuess(words[currentWord], wordle);
-      console.log(guess);
       setGuesses((prev) => {
         const updated = [...prev];
         updated[currentWord] = guess;
@@ -66,7 +65,12 @@ const index = () => {
         guesses={guesses}
         setGuesses={setGuesses}
       />
-      <Keyboard handlePress={handlePress} />
+      <Keyboard
+        handlePress={handlePress}
+        words={words}
+        currentWord={currentWord}
+        guesses={guesses}
+      />
       <View style={styles.footer}></View>
     </View>
   );
