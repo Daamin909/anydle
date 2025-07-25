@@ -1,9 +1,21 @@
 import { StyleSheet, View, Text } from "react-native";
 
-const Box = ({ letter }) => {
+const Box = ({ letter, bgStyles, fgStyles }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{letter}</Text>
+    <View
+      style={{
+        ...styles.container,
+        ...bgStyles,
+      }}
+    >
+      <Text
+        style={{
+          ...styles.text,
+          ...fgStyles,
+        }}
+      >
+        {letter}
+      </Text>
     </View>
   );
 };
@@ -19,7 +31,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   text: {
-    fontSize: 30,
+    fontSize: 40,
+    fontWeight: 700,
     color: "white",
   },
 });

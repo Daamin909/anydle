@@ -13,7 +13,6 @@ const _layout = () => {
             drawerStyle: {
               backgroundColor: "#121213",
             },
-            // TODO add settings, account and about icon
             headerRight: () => <Navbar />,
             headerStyle: {
               backgroundColor: "#121213",
