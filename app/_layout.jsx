@@ -5,6 +5,8 @@ import { Button, StyleSheet, View } from "react-native";
 import Navbar from "../components/navbar/Navbar";
 import { ModalContext } from "../context/ModalContext";
 import { useState } from "react";
+import firebaseInit from "../firebase/firebaseConfig";
+firebaseInit();
 
 const _layout = () => {
   const [showModalFn, setShowModalFn] = useState(() => () => {});
@@ -55,9 +57,17 @@ const _layout = () => {
                 title: "",
               }}
             />
+            <Drawer.Screen
+              name="account" // This is the name of the page and must match the url from root
+              options={{
+                drawerLabel: "My Account",
+                title: "",
+              }}
+            />
           </Drawer>
           <Toast />
         </View>
+        <Toast />
       </GestureHandlerRootView>
     </ModalContext.Provider>
   );
