@@ -3,3 +3,5 @@ node_modules
 .vscode
 .expo
 .env
+.expo/devices.json
+.expo/README.md
