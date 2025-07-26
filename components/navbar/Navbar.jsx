@@ -11,7 +11,6 @@ const Navbar = () => {
         iconColor="#e3e3e3"
         onPress={isSettingsVisible ? hideModal : showModal}
       />
-      <IconButton icon={"account"} iconColor="#e3e3e3" />
       <TouchableOpacity onPress={() => null} style={styles.button}>
         <Text style={styles.text}>Subscribe</Text>
       </TouchableOpacity>

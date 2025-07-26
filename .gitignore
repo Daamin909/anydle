@@ -1,3 +1,5 @@
 node_modules
-.expo
+node_modules
 .vscode
+.expo
+.env
