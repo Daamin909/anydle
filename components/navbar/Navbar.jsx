@@ -1,10 +1,16 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Button, IconButton } from "react-native-paper";
+import { useModal } from "../../context/ModalContext";
 
 const Navbar = () => {
+  const { showModal, hideModal, isSettingsVisible } = useModal();
   return (
     <View style={styles.container}>
-      <IconButton icon={"cog"} iconColor="#e3e3e3" />
+      <IconButton
+        icon={"cog"}
+        iconColor="#e3e3e3"
+        onPress={isSettingsVisible ? hideModal : showModal}
+      />
       <IconButton icon={"account"} iconColor="#e3e3e3" />
       <TouchableOpacity onPress={() => null} style={styles.button}>
         <Text style={styles.text}>Subscribe</Text>

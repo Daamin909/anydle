@@ -1,23 +1,37 @@
 import { StyleSheet, View, Text } from "react-native";
 import LetterBoxes from "../components/input/LetterBoxes";
 import Keyboard from "../components/input/Keyboard";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import evaluateGuess from "../scripts/evaluate";
 import getRandomWord from "../scripts/getRandomWord";
 import isValidWord from "../scripts/isValidWord";
 import { useAnimatedShake } from "../hooks/useAnimatedShake";
+import Settings from "../components/categories/Settings";
+import { PaperProvider } from "react-native-paper";
+import { useModal } from "../context/ModalContext"; // adjust path
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
   const [guesses, setGuesses] = useState([null, null, null, null, null, null]);
   const [currentWord, setCurrentWord] = useState(0);
   const [wordle, setWordle] = useState(getRandomWord().toUpperCase());
+
+  // shake animation vars
   const [shakenRowNumber, setShakenRowNumber] = useState(null);
   const { shake, rStyle, isShaking } = useAnimatedShake();
 
-  // useEffect(() => {
-  //   shake();
-  // }, [shakenRowNumber]);
+  // settings popup vars
+  const { setShowModalFn, setHideModalFn, setIsSettingsVisibleExternal } =
+    useModal();
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+  const showSettings = () => setIsSettingsVisible(true);
+  const hideSettings = () => setIsSettingsVisible(false);
+
+  useEffect(() => {
+    setShowModalFn(() => showSettings);
+    setHideModalFn(() => hideSettings);
+    setIsSettingsVisibleExternal(isSettingsVisible);
+  }, [isSettingsVisible]);
 
   const handlePress = (key) => {
     if (key == "Enter") {
@@ -72,23 +86,29 @@ const index = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <LetterBoxes
-        words={words}
-        setWords={setWords}
-        guesses={guesses}
-        setGuesses={setGuesses}
-        rStyle={rStyle}
-        shakenRowNumber={shakenRowNumber}
-      />
-      <Keyboard
-        handlePress={handlePress}
-        words={words}
-        currentWord={currentWord}
-        guesses={guesses}
-      />
-      <View style={styles.footer}></View>
-    </View>
+    <PaperProvider>
+      <View style={styles.container}>
+        <LetterBoxes
+          words={words}
+          setWords={setWords}
+          guesses={guesses}
+          setGuesses={setGuesses}
+          rStyle={rStyle}
+          shakenRowNumber={shakenRowNumber}
+        />
+        <Keyboard
+          handlePress={handlePress}
+          words={words}
+          currentWord={currentWord}
+          guesses={guesses}
+        />
+        <Settings
+          hideSettings={hideSettings}
+          isSettingsVisible={isSettingsVisible}
+        />
+        <View style={styles.footer}></View>
+      </View>
+    </PaperProvider>
   );
 };
 
