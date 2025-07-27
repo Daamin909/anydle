@@ -1,0 +1,25 @@
+{
+  "uid": "xEytGTRblca0fzbYJXdVr6GvyXB3",
+  "email": "alchedits@gmail.com",
+  "emailVerified": false,
+  "isAnonymous": false,
+  "providerData": [
+    {
+      "providerId": "password",
+      "uid": "alchedits@gmail.com",
+      "displayName": null,
+      "email": "alchedits@gmail.com",
+      "phoneNumber": null,
+      "photoURL": null
+    }
+  ],
+  "stsTokenManager": {
+    "refreshToken": "AMf-vBznZk6sFeahw08DM_H9cS4eOqQzEHs0BeBkq0WaMUVD0eLxczWzZqG2xNZLSnxLthBLbPLXlOrngvmGLoK4TDS4--uMHd38qYQVeYovLc9pycYTr5l_IscO3LnPauFvSbwiVpKf3iS83F5Acui0ekLJ_3xWesqxcZSBje9KWCBvv1zqFAYYM-U5ZyGPpS6VRtenkgxM",
+    "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkZTQwZjA0ODgxYzZhMDE2MTFlYjI4NGE0Yzk1YTI1MWU5MTEyNTAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYW55ZGxlMTAxIiwiYXVkIjoiYW55ZGxlMTAxIiwiYXV0aF90aW1lIjoxNzUzNTk1MDI3LCJ1c2VyX2lkIjoieEV5dEdUUmJsY2EwZnpiWUpYZFZyNkd2eVhCMyIsInN1YiI6InhFeXRHVFJibGNhMGZ6YllKWGRWcjZHdnlYQjMiLCJpYXQiOjE3NTM1OTUwMjcsImV4cCI6MTc1MzU5ODYyNywiZW1haWwiOiJhbGNoZWRpdHNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFsY2hlZGl0c0BnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.WmP4-Py5P-na48T80DrtHo3fJ1vzJtCFtSroMK996K993tc1gPRWo8GBwffM2nxUhbcFp8a3kmnvZwv-GzqbErtNwLT8kXHziHCi0EqUGuITfXp-LgHBglBFXD5fBOdp_rrdZR9jByhrua4W4Jqt5Co6jYBCKjU7e3UX3sMlpIfvo0Sj7A64EspNe_YUVDFyqF5KZnhyk7Rb_0urK7iK2zR4K8Si0JuiCLV0Ri8XzBvx7KSQKwluoZh0rOcR12ESUMKpXR1krtWGkjhfpR_7l57PNBUoyLL-qQ5uju7cy_GCghRVm9N0ndHEZh-TOIq3R78h4lS6XOmjFvd-PwNQlg",
+    "expirationTime": 1753598624187
+  },
+  "createdAt": "1753591095514",
+  "lastLoginAt": "1753595027432",
+  "apiKey": "AIzaSyAP8fZ2o9zquGItpyVSQICsK9j3-lE86sw",
+  "appName": "[DEFAULT]"
+}

@@ -1,60 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Button, TextInput } from "react-native";
-import Toast from "react-native-toast-message";
-import * as yup from "yup";
-import signUpWithEmail from "../auth/signup";
-import signInWithEmail from "../auth/signin";
-
-const schema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters")
-    .matches(/\d/, "Password must contain at least one number")
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      "Password must contain one special character"
-    ),
-});
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import SignUpPage from "../components/auth/SignUpPage";
+import AccountDashboard from "../components/auth/AccountDashboard";
+import SignInPage from "../components/auth/SignInPage";
 
 const Account = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(true);
+  useEffect(() => {
+    const auth = getAuth();
+    const the_user = auth.currentUser;
 
-  const handlePress = async () => {
-    try {
-      await schema.validate({ email, password });
-      console.log(email, password);
-      signInWithEmail(email, password);
-    } catch (err) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: err.message,
-        position: "bottom",
-      });
+    if (the_user) {
+      setUser(the_user);
+    } else {
+      setUser(null);
     }
-  };
+
+    const unsubscribe = onAuthStateChanged(auth, (the_user) => {
+      if (the_user) {
+        setUser(the_user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Sign In" onPress={handlePress} />
+      {!user && showSignUp && <SignUpPage setShowSignUp={setShowSignUp} />}
+      {!user && !showSignUp && <SignInPage setShowSignUp={setShowSignUp} />}
+      {user && <AccountDashboard user={user} />}
     </View>
   );
 };
@@ -62,7 +41,6 @@ const Account = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    paddingTop: 50,
   },
   input: {
     height: 40,

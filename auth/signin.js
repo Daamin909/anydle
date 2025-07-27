@@ -1,15 +1,22 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const auth = getAuth();
-auth.useDeviceLanguage();
+const signInWithEmail = async (email, password) => {
+  const auth = getAuth();
+  auth.useDeviceLanguage();
 
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
+    console.log("User signed in:", user);
+  } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-  });
+    console.log("Error:", errorCode, errorMessage);
+  }
+};
+
+export default signInWithEmail;
