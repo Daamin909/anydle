@@ -25,7 +25,14 @@
       "favicon": "./assets/branding/logo.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/ClearSans-Bold.ttf"]
+        }
+      ]
     ],
     "ios": {
       "bundleIdentifier": "com.daamin.anydle"

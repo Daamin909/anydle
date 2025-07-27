@@ -1,17 +1,45 @@
 import Toast from "react-native-toast-message";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Navbar from "../components/navbar/Navbar";
 import { ModalContext } from "../context/ModalContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import firebaseInit from "../firebase/firebaseConfig";
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
+
 firebaseInit();
 
 const _layout = () => {
   const [showModalFn, setShowModalFn] = useState(() => () => {});
   const [hideModalFn, setHideModalFn] = useState(() => () => {});
   const [isSettingsVisible, setIsSettingsVisibleExternal] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <ModalContext.Provider
@@ -72,16 +100,17 @@ const _layout = () => {
               }}
             />
           </Drawer>
-          <Toast />
         </View>
         <Toast />
       </GestureHandlerRootView>
     </ModalContext.Provider>
   );
 };
+
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
 });
+
 export default _layout;

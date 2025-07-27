@@ -41,6 +41,8 @@ const Account = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: "#121213",
+    flex: 1,
   },
   input: {
     height: 40,

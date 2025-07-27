@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    fontWeight: 700,
+    fontFamily: "Inter_700Bold",
     color: "white",
   },
 });
