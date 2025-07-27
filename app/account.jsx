@@ -2,7 +2,8 @@ import { useState } from "react";
 import { StyleSheet, View, Text, Button, TextInput } from "react-native";
 import Toast from "react-native-toast-message";
 import * as yup from "yup";
-import signUpWithEmail from "../auth/email/signup";
+import signUpWithEmail from "../auth/signup";
+import signInWithEmail from "../auth/signin";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -25,7 +26,7 @@ const Account = () => {
     try {
       await schema.validate({ email, password });
       console.log(email, password);
-      signUpWithEmail(email, password);
+      signInWithEmail(email, password);
     } catch (err) {
       Toast.show({
         type: "error",
@@ -53,7 +54,7 @@ const Account = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign Up" onPress={handlePress} />
+      <Button title="Sign In" onPress={handlePress} />
     </View>
   );
 };

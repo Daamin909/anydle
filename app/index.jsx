@@ -9,6 +9,7 @@ import { useAnimatedShake } from "../hooks/useAnimatedShake";
 import Settings from "../components/categories/Settings";
 import { PaperProvider } from "react-native-paper";
 import { useModal } from "../context/ModalContext"; // adjust path
+import { Link } from "expo-router";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -106,7 +107,16 @@ const index = () => {
           hideSettings={hideSettings}
           isSettingsVisible={isSettingsVisible}
         />
-        <View style={styles.footer}></View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>© 2025 </Text>
+          <Link href="https://daamin.tech" style={styles.footerText}>
+            Daamin Ashai
+          </Link>
+          <Text style={styles.footerText}> · </Text>
+          <Link href="/privacy" style={styles.footerText}>
+            Privacy Policy
+          </Link>
+        </View>
       </View>
     </PaperProvider>
   );
@@ -118,10 +128,19 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     justifyContent: "space-between",
-    paddingBottom: "15%",
-    paddingTop: 10,
+    padding: 10,
   },
-  footer: {},
+  footer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    margin: "3%",
+  },
+  footerText: {
+    color: "white",
+    fontSize: 14,
+    fontFamily: "monospace",
+  },
 });
 
 export default index;

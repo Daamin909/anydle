@@ -44,23 +44,30 @@ const _layout = () => {
             }}
           >
             <Drawer.Screen
-              name="index" // This is the name of the page and must match the url from root
+              name="index"
               options={{
                 drawerLabel: "Home",
                 title: "",
               }}
             />
             <Drawer.Screen
-              name="leaderboard" // This is the name of the page and must match the url from root
+              name="leaderboard"
               options={{
                 drawerLabel: "Leaderboard",
                 title: "",
               }}
             />
             <Drawer.Screen
-              name="account" // This is the name of the page and must match the url from root
+              name="account"
               options={{
                 drawerLabel: "My Account",
+                title: "",
+              }}
+            />
+            <Drawer.Screen
+              name="privacy"
+              options={{
+                drawerLabel: "Privacy Policy",
                 title: "",
               }}
             />
