@@ -73,7 +73,7 @@ const SignUpPage = ({ setShowSignUp }) => {
         dark={true}
         buttonColor={"#538d4e"}
         textColor="#f8f8f8"
-        labelStyle={{ fontSize: 20 }}
+        labelStyle={{ fontSize: 16 }}
       >
         Sign Up
       </Button>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import { Button, IconButton } from "react-native-paper";
 import { signInSchema } from "../../utils/authSchema";
@@ -26,11 +26,13 @@ const SignInPage = ({ setShowSignUp }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.heading}>Sign In</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        placeholderTextColor={"#ffffff8a"}
         autoCapitalize="none"
         keyboardType="email-address"
       />
@@ -43,6 +45,7 @@ const SignInPage = ({ setShowSignUp }) => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
+          placeholderTextColor={"#ffffff8a"}
           secureTextEntry={!showPassword}
         />
         <IconButton
@@ -51,10 +54,21 @@ const SignInPage = ({ setShowSignUp }) => {
           onPress={() => setShowPassword((prev) => !prev)}
         />
       </View>
-      <Button mode="text" onPress={() => setShowSignUp(true)}>
+      <Button
+        mode="text"
+        onPress={() => setShowSignUp(true)}
+        textColor="#ffdf52ff"
+      >
         Don't have an Account? Sign up.
       </Button>
-      <Button onPress={handlePress} mode="contained-tonal">
+      <Button
+        onPress={handlePress}
+        mode="contained-tonal"
+        dark={true}
+        buttonColor={"#538d4e"}
+        textColor="#f8f8f8"
+        labelStyle={{ fontSize: 16 }}
+      >
         Sign In
       </Button>
     </View>
@@ -67,17 +81,31 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   input: {
-    height: 40,
     marginVertical: 12,
     borderWidth: 1,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#3a3a3c",
+    color: "#f8f8f8",
+    fontSize: 18,
+    borderRadius: 20,
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    paddingHorizontal: 10,
     marginVertical: 12,
+    borderRadius: 20,
+    paddingRight: 5,
+    borderWidth: 1,
+    backgroundColor: "#3a3a3c",
+  },
+  heading: {
+    color: "white",
+    fontSize: 42,
+    textAlign: "center",
+    padding: 10,
+    margin: 10,
+    fontFamily: "monospace",
   },
 });
 

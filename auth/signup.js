@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import Toast from "react-native-toast-message";
 
 const signUpWithEmail = async (email, password, name) => {
   const auth = getAuth();
@@ -23,7 +24,12 @@ const signUpWithEmail = async (email, password, name) => {
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log("Error:", errorCode, errorMessage);
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: errorMessage,
+      position: "top",
+    });
   }
 };
 

@@ -5,9 +5,13 @@ import logout from "../../auth/logout";
 const AccountDashboard = ({ user }) => {
   return (
     <View style={styles.container}>
-      <Text>Email: {user && user.email}</Text>
-      <Text>Name: {user && user.providerData[0]?.displayName}</Text>
-      <Text>Phone Number: {user && user.providerData[0]?.phoneNumber}</Text>
+      <Text style={styles.text}>Email: {user && user.email}</Text>
+      <Text style={styles.text}>
+        Name: {user && user.providerData[0]?.displayName}
+      </Text>
+      <Text style={styles.text}>
+        Phone Number: {user && user.providerData[0]?.phoneNumber}
+      </Text>
       <Image
         style={styles.tinyLogo}
         source={{
@@ -24,6 +28,9 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  text: {
+    color: "white",
   },
 });
 
