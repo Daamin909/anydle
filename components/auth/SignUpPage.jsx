@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import { Button, IconButton } from "react-native-paper";
 import { signUpSchema } from "../../utils/authSchema";
-import signUpWithEmail from "../../auth/signUp";
+import signUpWithEmail from "../../auth/signup";
 
 const SignUpPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
@@ -56,7 +56,7 @@ const SignUpPage = ({ setShowSignUp }) => {
         <IconButton
           icon={showPassword ? "eye-off" : "eye"}
           size={20}
-          iconColor="#f8f8f8"
+          iconColor="#ffffff8a"
           onPress={() => setShowPassword((prev) => !prev)}
         />
       </View>
