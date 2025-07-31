@@ -45,8 +45,8 @@ def check_categories(word):
 
 output = []
 
-for word in words:
-    print(f"Processing: {word}")
+for index, word in enumerate(words):
+    print(f"Processing: {word} – {index + 1}/{len(words)}")
     categories = check_categories(word)
     compiled = {word: categories}
     output.append(compiled)
