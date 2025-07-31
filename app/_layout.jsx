@@ -7,13 +7,15 @@ import { ModalContext } from "../context/ModalContext";
 import { useState, useEffect } from "react";
 import firebaseInit from "../firebase/firebaseConfig";
 import {
-  useFonts,
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-} from "@expo-google-fonts/inter";
+  Nunito_400Regular,
+  Nunito_500Medium,
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+  Nunito_800ExtraBold,
+} from "@expo-google-fonts/nunito";
 import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
+import { Inter_700Bold } from "@expo-google-fonts/inter";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,9 +27,11 @@ const _layout = () => {
   const [isSettingsVisible, setIsSettingsVisibleExternal] = useState(false);
 
   const [fontsLoaded] = useFonts({
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
+    Nunito_400Regular,
+    Nunito_500Medium,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+    Nunito_800ExtraBold,
     Inter_700Bold,
   });
 

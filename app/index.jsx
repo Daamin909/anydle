@@ -8,7 +8,7 @@ import isValidWord from "../scripts/isValidWord";
 import { useAnimatedShake } from "../hooks/useAnimatedShake";
 import Settings from "../components/categories/Settings";
 import { PaperProvider } from "react-native-paper";
-import { useModal } from "../context/ModalContext"; // adjust path
+import { useModal } from "../context/ModalContext";
 import { Link } from "expo-router";
 
 const index = () => {
@@ -35,7 +35,7 @@ const index = () => {
   }, [isSettingsVisible]);
 
   const handlePress = (key) => {
-    if (key == "Enter") {
+    if (key == "enter") {
       if (words[currentWord]?.trim().length != 5) {
         setShakenRowNumber(currentWord);
         shake();
@@ -57,7 +57,7 @@ const index = () => {
       setCurrentWord((prev) => prev + 1);
       return;
     }
-    if (key == "⌫") {
+    if (key == "backspace") {
       if (words[currentWord]) {
         setWords((prev) => {
           let updated = [...prev];
@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     justifyContent: "space-between",
-    padding: 10,
+    padding: 20,
+    paddingTop: 40,
   },
   footer: {
     display: "flex",

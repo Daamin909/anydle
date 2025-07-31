@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Icon } from "react-native-paper";
 
 const Key = ({ letter, handlePress, greens, blacks, yellows }) => {
   let key_color = greens.has(letter)
@@ -16,14 +17,18 @@ const Key = ({ letter, handlePress, greens, blacks, yellows }) => {
       }}
       onPress={() => handlePress(letter)}
     >
-      <Text
-        style={{
-          ...styles.text,
-          ...(key_color ? styles[`${key_color}_fg`] : {}),
-        }}
-      >
-        {letter}
-      </Text>
+      {letter != "enter" && letter != "backspace" && (
+        <Text
+          style={{
+            ...styles.text,
+            ...(key_color ? styles[`${key_color}_fg`] : {}),
+          }}
+        >
+          {letter}
+        </Text>
+      )}
+      {letter == "backspace" && <Icon source={"backspace-outline"} size={24} />}
+      {letter == "enter" && <Icon source={"keyboard-return"} size={24} />}
     </TouchableOpacity>
   );
 };
@@ -32,16 +37,17 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#818384",
     paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 9,
     marginHorizontal: 3,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+    height: 40,
   },
   text: {
     color: "#f8f8f8",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 22,
+    fontFamily: "Nunito_800ExtraBold",
   },
   G_bg: { backgroundColor: "#538d4e" },
   Y_bg: { backgroundColor: "#b59f3b" },

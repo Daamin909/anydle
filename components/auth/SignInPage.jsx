@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import { Button, IconButton } from "react-native-paper";
 import { signInSchema } from "../../utils/authSchema";
-import signInWithEmail from "../../auth/signin";
+import signInWithEmail from "../../auth/signIn";
 
 const SignInPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
@@ -38,10 +38,7 @@ const SignInPage = ({ setShowSignUp }) => {
       />
       <View style={styles.passwordContainer}>
         <TextInput
-          style={[
-            styles.input,
-            { flex: 1, borderWidth: 0, marginVertical: 0 },
-          ]}
+          style={[styles.input, { flex: 1, borderWidth: 0, marginVertical: 0 }]}
           placeholder="Password"
           value={password}
           onChangeText={setPassword}

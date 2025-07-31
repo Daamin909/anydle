@@ -10,7 +10,7 @@ const Keyboard = ({ handlePress, words, currentWord, guesses }) => {
   const keys = [
     "QWERTYUIOP".split(""),
     "ASDFGHJKL".split(""),
-    ["Enter", ..."ZXCVBNM".split(""), "⌫"],
+    ["enter", ..."ZXCVBNM".split(""), "backspace"],
   ];
 
   useEffect(() => {

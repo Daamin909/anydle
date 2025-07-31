@@ -2,20 +2,8 @@ import { StyleSheet, View, Text } from "react-native";
 
 const Box = ({ letter, bgStyles, fgStyles }) => {
   return (
-    <View
-      style={{
-        ...styles.container,
-        ...bgStyles,
-      }}
-    >
-      <Text
-        style={{
-          ...styles.text,
-          ...fgStyles,
-        }}
-      >
-        {letter}
-      </Text>
+    <View style={[styles.container, bgStyles]}>
+      <Text style={[styles.text, fgStyles]}>{letter}</Text>
     </View>
   );
 };

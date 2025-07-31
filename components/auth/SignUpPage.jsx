@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import { Button, IconButton } from "react-native-paper";
 import { signUpSchema } from "../../utils/authSchema";
-import signUpWithEmail from "../../auth/signup";
+import signUpWithEmail from "../../auth/signUp";
 
 const SignUpPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
