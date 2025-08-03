@@ -12,7 +12,7 @@ const signInWithEmail = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log("User signed in:", user);
+    console.log("User signed in");
   } catch (error) {
     const errorMessage = error.message;
     Toast.show({

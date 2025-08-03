@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Button, Modal, Portal, RadioButton } from "react-native-paper";
-import getCategory from "../../scripts/fetch/getCategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Settings = ({ isSettingsVisible, hideSettings }) => {
-  const [value, setValue] = useState("technology");
+const Settings = ({ isSettingsVisible, hideSettings, setCategory }) => {
+  const [value, setValue] = useState("default");
   const [fieldValue, setFieldValue] = useState("");
 
+  useEffect(() => {
+    setCategory(value);
+  }, [value]);
   return (
     <View>
       <Portal>
@@ -33,7 +35,7 @@ const Settings = ({ isSettingsVisible, hideSettings }) => {
                 />
                 <RadioButton.Item
                   label="Tech"
-                  value="technology"
+                  value="tech"
                   color="#538d4e"
                   style={styles.radioItem}
                   labelStyle={styles.radioLabel}

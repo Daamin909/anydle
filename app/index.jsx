@@ -15,7 +15,9 @@ const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
   const [guesses, setGuesses] = useState([null, null, null, null, null, null]);
   const [currentWord, setCurrentWord] = useState(0);
-  const [wordle, setWordle] = useState(getRandomWord().toUpperCase());
+
+  const [category, setCategory] = useState("default");
+  const [wordle, setWordle] = useState(getRandomWord(category).toUpperCase());
 
   // shake animation vars
   const [shakenRowNumber, setShakenRowNumber] = useState(null);
@@ -34,6 +36,9 @@ const index = () => {
     setIsSettingsVisibleExternal(isSettingsVisible);
   }, [isSettingsVisible]);
 
+  useEffect(() => {
+    setWordle(getRandomWord(category).toUpperCase());
+  }, [category]);
   const handlePress = (key) => {
     if (key == "enter") {
       if (words[currentWord]?.trim().length != 5) {
@@ -106,16 +111,18 @@ const index = () => {
         <Settings
           hideSettings={hideSettings}
           isSettingsVisible={isSettingsVisible}
+          setCategory={setCategory}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>© 2025 </Text>
-          <Link href="https://daamin.tech" style={styles.footerText}>
+          {/* <Link href="https://daamin.tech" style={styles.footerText}>
             Daamin Ashai
           </Link>
           <Text style={styles.footerText}> · </Text>
           <Link href="/privacy" style={styles.footerText}>
             Privacy Policy
-          </Link>
+          </Link> */}
+          <Text style={styles.footerText}>{` ${category} and ${wordle}`}</Text>
         </View>
       </View>
     </PaperProvider>

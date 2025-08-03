@@ -1,7 +1,7 @@
-import wordsJSON from "../assets/words.json";
+import default_list from "../assets/json/default.json";
 
 const isValidWord = (word) => {
-  const words = wordsJSON.words;
+  const words = default_list;
   return words.includes(word.toLowerCase());
 };
 

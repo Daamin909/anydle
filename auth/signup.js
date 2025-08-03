@@ -19,7 +19,7 @@ const signUpWithEmail = async (email, password, name) => {
     await updateProfile(user, {
       displayName: name,
     });
-    console.log("User created:", user);
+    console.log("User created");
     console.log("Display name set to:", user.displayName);
   } catch (error) {
     const errorCode = error.code;
