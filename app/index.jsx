@@ -10,6 +10,7 @@ import Settings from "../components/categories/Settings";
 import { PaperProvider } from "react-native-paper";
 import { useModal } from "../context/ModalContext";
 import { Link } from "expo-router";
+import increaseScore from "../scripts/db/increaseScore";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -39,17 +40,32 @@ const index = () => {
   useEffect(() => {
     setWordle(getRandomWord(category).toUpperCase());
   }, [category]);
+
+  useEffect(() => {
+    if (currentWord === 6) {
+      const success = increaseScore(category == "default" ? 2 : 1);
+      if (!success) {
+        // prompt user to sign in because they are not signed in
+        console.log("sign in to save score");
+      } else {
+        console.log("score saved");
+      }
+    }
+  }, [currentWord]);
   const handlePress = (key) => {
     if (key == "enter") {
+      // check if less than 5 letter
       if (words[currentWord]?.trim().length != 5) {
         setShakenRowNumber(currentWord);
         shake();
         return;
+        // check if invalid word
       } else if (!isValidWord(words[currentWord]?.trim())) {
         setShakenRowNumber(currentWord);
         shake();
         return;
       }
+
       const guess = evaluateGuess(words[currentWord], wordle);
       setGuesses((prev) => {
         const updated = [...prev];
@@ -62,8 +78,10 @@ const index = () => {
       setCurrentWord((prev) => prev + 1);
       return;
     }
+
     if (key == "backspace") {
       if (words[currentWord]) {
+        // check if a letter to erase even exists
         setWords((prev) => {
           let updated = [...prev];
           const newWord = words[currentWord].trim().slice(0, -1);
@@ -73,15 +91,19 @@ const index = () => {
       }
       return;
     }
+
     if (!words[currentWord]) {
+      // check if the boxes are empty, and add the first letter
       setWords((prev) => {
         let updated = [...prev];
         updated[currentWord] = `${key}    `;
         return updated;
       });
     } else if (words[currentWord].trim().length == 5) {
+      // check if max letter have been reached
       return;
     } else {
+      // just append words if they alr exist
       setWords((prev) => {
         let updated = [...prev];
         const newWord = words[currentWord].trim() + key;
@@ -115,14 +137,13 @@ const index = () => {
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>© 2025 </Text>
-          {/* <Link href="https://daamin.tech" style={styles.footerText}>
+          <Link href="https://daamin.tech" style={styles.footerText}>
             Daamin Ashai
           </Link>
           <Text style={styles.footerText}> · </Text>
           <Link href="/privacy" style={styles.footerText}>
             Privacy Policy
-          </Link> */}
-          <Text style={styles.footerText}>{` ${category} and ${wordle}`}</Text>
+          </Link>
         </View>
       </View>
     </PaperProvider>
