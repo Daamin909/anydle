@@ -30,7 +30,7 @@ const SignUpPage = ({ setShowSignUp }) => {
       <Text style={styles.heading}>Sign Up</Text>
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        placeholder="Username"
         value={name}
         placeholderTextColor={"#ffffff8a"}
         onChangeText={setName}

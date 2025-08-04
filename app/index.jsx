@@ -11,6 +11,7 @@ import { PaperProvider } from "react-native-paper";
 import { useModal } from "../context/ModalContext";
 import { Link } from "expo-router";
 import increaseScore from "../scripts/db/increaseScore";
+import calculateScore from "../utils/calculateScore";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -41,17 +42,25 @@ const index = () => {
     setWordle(getRandomWord(category).toUpperCase());
   }, [category]);
 
+  console.log(wordle);
   useEffect(() => {
-    if (currentWord === 6) {
-      const success = increaseScore(category == "default" ? 2 : 1);
+    console.log("current guess state: " + guesses[currentWord - 1]);
+    console.log("all guesses: " + guesses);
+    console.log("the current position: " + currentWord);
+    if (guesses[currentWord - 1] == "GGGGG") {
+      const score = calculateScore(currentWord, category);
+      const success = increaseScore(score);
       if (!success) {
-        // prompt user to sign in because they are not signed in
         console.log("sign in to save score");
       } else {
         console.log("score saved");
       }
+    } else if (currentWord === 6) {
+      console.log("game over and could not guess");
+      // a possible -1?
     }
   }, [currentWord]);
+
   const handlePress = (key) => {
     if (key == "enter") {
       // check if less than 5 letter
