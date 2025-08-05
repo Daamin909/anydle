@@ -20,7 +20,6 @@ import { Inter_700Bold } from "@expo-google-fonts/inter";
 SplashScreen.preventAutoHideAsync();
 
 firebaseInit();
-
 const _layout = () => {
   const [showModalFn, setShowModalFn] = useState(() => () => {});
   const [hideModalFn, setHideModalFn] = useState(() => () => {});
@@ -44,7 +43,6 @@ const _layout = () => {
   if (!fontsLoaded) {
     return null;
   }
-
   return (
     <ModalContext.Provider
       value={{
