@@ -206,13 +206,24 @@ const privacy = () => {
       </Text>
 
       <Text style={styles.h2}>Contact Us</Text>
-      <Text style={styles.p}>If you have questions, contact us at:</Text>
-      <Text
-        style={styles.link}
-        onPress={() => Linking.openURL("mailto:ashai.daamin@gmail.com")}
+      <View
+        style={[
+          {
+            marginBottom: 50,
+            flexDirection: "row",
+            display: "flex",
+            gap: 5,
+          },
+        ]}
       >
-        ashai.daamin@gmail.com
-      </Text>
+        <Text style={styles.p}>Contact us at:</Text>
+        <Text
+          style={styles.link}
+          onPress={() => Linking.openURL("mailto:ashai.daamin@gmail.com")}
+        >
+          ashai.daamin@gmail.com
+        </Text>
+      </View>
     </ScrollView>
   );
 };
@@ -220,48 +231,58 @@ const privacy = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    flex: 1,
+    backgroundColor: "#121213",
   },
   h1: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 12,
+    color: "#f8f8f8",
   },
   h2: {
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 8,
+    color: "#f8f8f8",
   },
   h3: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#f8f8f8",
     marginTop: 16,
     marginBottom: 4,
   },
   h4: {
     fontSize: 16,
     fontWeight: "600",
+    color: "#f8f8f8",
     marginTop: 12,
     marginBottom: 4,
   },
   date: {
     marginBottom: 16,
     fontStyle: "italic",
+    color: "#f8f8f8",
   },
   p: {
     fontSize: 14,
     marginBottom: 12,
+    color: "#f8f8f8",
     lineHeight: 20,
   },
   li: {
     fontSize: 14,
     marginLeft: 10,
     marginBottom: 8,
+    color: "#f8f8f8",
     lineHeight: 20,
     flexDirection: "row",
   },
   bold: {
     fontWeight: "bold",
+    color: "#f8f8f8",
   },
   link: {
     color: "#1e90ff",
