@@ -5,7 +5,7 @@ import {
 } from "firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import Toast from "react-native-toast-message";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const firebaseInit = () => {
   // insert according to your own config
@@ -27,10 +27,9 @@ const firebaseInit = () => {
       });
     } catch (error) {
       Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: error,
-        position: "top",
+        type: ALERT_TYPE.DANGER,
+        title: "Error",
+        textBody: error,
       });
     }
   } else {

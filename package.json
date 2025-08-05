@@ -29,15 +29,16 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-alert-notification": "^0.4.2",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-paper": "^5.14.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-screens": "~4.11.1",
-    "react-native-toast-message": "^2.3.3",
     "react-native-web": "^0.20.0",
     "react-native-worklets": "^0.4.0",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "react-native-safe-area-context": "5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -10,3 +10,5 @@
 - About page (?)
 - add fonts everywhere
 - logo
+- loading animation – for login, logout, sign up, leaderboard
+- add "Me" highlight for leaderboard

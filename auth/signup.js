@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Toast from "react-native-toast-message";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signUpWithEmail = async (email, password, name) => {
   const auth = getAuth();
@@ -25,10 +25,9 @@ const signUpWithEmail = async (email, password, name) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: errorMessage,
-      position: "top",
+      type: ALERT_TYPE.DANGER,
+      title: "Error",
+      textBody: errorMessage,
     });
   }
 };

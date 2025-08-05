@@ -1,34 +1,53 @@
 import { StyleSheet, View, Text, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import getLeaderboard from "../scripts/db/getLeaderboard";
 import User from "../components/leaderboard/User";
+import { getApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
-    const getthelb = async () => {
+    const fetchLeaderboard = async () => {
       const data = await getLeaderboard();
       setUsers(data);
+      setLoading(false);
     };
-    getthelb();
+
+    fetchLeaderboard();
+
+    const auth = getAuth(getApp());
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setSignedIn(!!user);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>All-Time Leaderboard</Text>
 
-      {users.map((user, index) => (
-        <User
-          key={user.id}
-          name={user.username}
-          score={user.score}
-          profilePic={user.profilePic}
-          rank={index + 1}
-        />
-      ))}
+      {loading && signedIn && <Text style={styles.noData}>Loading...</Text>}
 
-      {users.length === 0 && <Text style={styles.noData}>Loading...</Text>}
+      {!signedIn && (
+        <Text style={styles.noData}>
+          Please sign in to view the leaderboard.
+        </Text>
+      )}
+
+      {signedIn &&
+        users.map((user, index) => (
+          <User
+            key={`${user.username}-${index}`}
+            name={user.username}
+            score={user.score}
+            rank={index + 1}
+          />
+        ))}
     </ScrollView>
   );
 };

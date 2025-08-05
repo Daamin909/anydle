@@ -1,4 +1,3 @@
-import Toast from "react-native-toast-message";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { StyleSheet, View } from "react-native";
@@ -17,6 +16,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { Inter_700Bold } from "@expo-google-fonts/inter";
 import { ResetContext } from "../context/ResetContext";
+import { AlertNotificationRoot } from "react-native-alert-notification";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -61,55 +61,56 @@ const _layout = () => {
         }}
       >
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <View style={styles.rootContainer}>
-            <Drawer
-              screenOptions={{
-                drawerStyle: {
-                  backgroundColor: "#121213",
-                },
-                headerRight: () => <Navbar />,
-                headerStyle: {
-                  backgroundColor: "#121213",
-                  borderBottomWidth: 0.5,
-                  borderColor: "white",
-                },
-                headerTintColor: "white",
-                drawerLabelStyle: {
-                  color: "white",
-                },
-              }}
-            >
-              <Drawer.Screen
-                name="index"
-                options={{
-                  drawerLabel: "Home",
-                  title: "",
+          <AlertNotificationRoot>
+            <View style={styles.rootContainer}>
+              <Drawer
+                screenOptions={{
+                  drawerStyle: {
+                    backgroundColor: "#121213",
+                  },
+                  headerRight: () => <Navbar />,
+                  headerStyle: {
+                    backgroundColor: "#121213",
+                    borderBottomWidth: 0.5,
+                    borderColor: "white",
+                  },
+                  headerTintColor: "white",
+                  drawerLabelStyle: {
+                    color: "white",
+                  },
                 }}
-              />
-              <Drawer.Screen
-                name="leaderboard"
-                options={{
-                  drawerLabel: "Leaderboard",
-                  title: "",
-                }}
-              />
-              <Drawer.Screen
-                name="account"
-                options={{
-                  drawerLabel: "My Account",
-                  title: "",
-                }}
-              />
-              <Drawer.Screen
-                name="privacy"
-                options={{
-                  drawerLabel: "Privacy Policy",
-                  title: "",
-                }}
-              />
-            </Drawer>
-          </View>
-          <Toast />
+              >
+                <Drawer.Screen
+                  name="index"
+                  options={{
+                    drawerLabel: "Home",
+                    title: "",
+                  }}
+                />
+                <Drawer.Screen
+                  name="leaderboard"
+                  options={{
+                    drawerLabel: "Leaderboard",
+                    title: "",
+                  }}
+                />
+                <Drawer.Screen
+                  name="account"
+                  options={{
+                    drawerLabel: "My Account",
+                    title: "",
+                  }}
+                />
+                <Drawer.Screen
+                  name="privacy"
+                  options={{
+                    drawerLabel: "Privacy Policy",
+                    title: "",
+                  }}
+                />
+              </Drawer>
+            </View>
+          </AlertNotificationRoot>
         </GestureHandlerRootView>
       </ModalContext.Provider>
     </ResetContext.Provider>

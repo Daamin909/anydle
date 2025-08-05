@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import Toast from "react-native-toast-message";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const logout = async () => {
   const auth = getAuth();
@@ -8,10 +8,9 @@ const logout = async () => {
     console.log("User signed out successfully");
   } catch (error) {
     Toast.show({
-      type: "error",
-      text1: `Error signing out: ${error}`,
-      text2: err.message,
-      position: "top",
+      type: ALERT_TYPE.DANGER,
+      title: "Error",
+      textBody: error.message,
     });
   }
 };

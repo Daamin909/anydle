@@ -2,20 +2,30 @@ import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { useModal } from "../../context/ModalContext";
 import { useReset } from "../../context/ResetContext";
+import { useNavigationState } from "@react-navigation/native";
 
 const Navbar = () => {
   const { showModal, hideModal, isSettingsVisible } = useModal();
   const { handleReset } = useReset();
-
+  const currentRouteName = useNavigationState((state) => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
   return (
-    <View style={styles.container}>
-      <IconButton icon={"refresh"} iconColor="#e3e3e3" onPress={handleReset} />
-      <IconButton
-        icon={"cog"}
-        iconColor="#e3e3e3"
-        onPress={isSettingsVisible ? hideModal : showModal}
-      />
-    </View>
+    currentRouteName === "index" && (
+      <View style={styles.container}>
+        <IconButton
+          icon={"refresh"}
+          iconColor="#e3e3e3"
+          onPress={handleReset}
+        />
+        <IconButton
+          icon={"cog"}
+          iconColor="#e3e3e3"
+          onPress={isSettingsVisible ? hideModal : showModal}
+        />
+      </View>
+    )
   );
 };
 

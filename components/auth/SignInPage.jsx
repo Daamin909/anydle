@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
-import Toast from "react-native-toast-message";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { Button, IconButton } from "react-native-paper";
 import { signInSchema } from "../../utils/authSchema";
 import signInWithEmail from "../../auth/signIn";
@@ -16,10 +16,9 @@ const SignInPage = ({ setShowSignUp }) => {
       await signInWithEmail(email, password);
     } catch (err) {
       Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: err.message,
-        position: "top",
+        type: ALERT_TYPE.DANGER,
+        title: "Error",
+        textBody: err,
       });
     }
   };
