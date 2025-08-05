@@ -1,0 +1,12 @@
+- how to play wordle popup
+- ~~game reset button~~
+- logged in page styling aka my account page
+- profile picture uploading
+- ~~privacy policy~~
+- game completed feedback
+- couldn't solve feedback
+- enjoying? rate our app
+- animation for word reveal
+- About page (?)
+- add fonts everywhere
+- logo

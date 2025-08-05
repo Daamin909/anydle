@@ -16,6 +16,8 @@ const Key = ({ letter, handlePress, greens, blacks, yellows }) => {
         ...(key_color ? styles[`${key_color}_bg`] : {}),
       }}
       onPress={() => handlePress(letter)}
+      activeOpacity={0.6}
+      accessibilityLabel={`Key ${letter}`}
     >
       {letter != "enter" && letter != "backspace" && (
         <Text

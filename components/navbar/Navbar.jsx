@@ -1,11 +1,15 @@
 import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { useModal } from "../../context/ModalContext";
+import { useReset } from "../../context/ResetContext";
 
 const Navbar = () => {
   const { showModal, hideModal, isSettingsVisible } = useModal();
+  const { handleReset } = useReset();
+
   return (
     <View style={styles.container}>
+      <IconButton icon={"refresh"} iconColor="#e3e3e3" onPress={handleReset} />
       <IconButton
         icon={"cog"}
         iconColor="#e3e3e3"
