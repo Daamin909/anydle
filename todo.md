@@ -1,8 +1,8 @@
 - ~~game reset button~~
 - ~~privacy policy~~
 
-- how to play wordle popup
-- logged in page styling aka my account page
+- ~~how to play wordle popup~~~~
+- ~~logged in page styling aka my account page~~
 - profile picture uploading
 
 - game completed feedback
