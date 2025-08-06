@@ -13,6 +13,8 @@ import { Link } from "expo-router";
 import increaseScore from "../scripts/db/increaseScore";
 import calculateScore from "../utils/calculateScore";
 import { useReset } from "../context/ResetContext";
+import About from "../components/info/About";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -32,6 +34,25 @@ const index = () => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const showSettings = () => setIsSettingsVisible(true);
   const hideSettings = () => setIsSettingsVisible(false);
+
+  // about popup vars
+  const [isAboutVisible, setIsAboutVisible] = useState(false);
+
+  useEffect(() => {
+    const firsttime = async () => {
+      try {
+        const hasSeenPopup = await AsyncStorage.getItem("aboutShown");
+        if (!hasSeenPopup) {
+          setIsAboutVisible(true);
+          await AsyncStorage.setItem("aboutShown", "true");
+        }
+      } catch (err) {
+        console.error("popup", err);
+      }
+    };
+
+    firsttime();
+  }, []);
 
   useEffect(() => {
     setShowModalFn(() => showSettings);
@@ -157,6 +178,10 @@ const index = () => {
           hideSettings={hideSettings}
           isSettingsVisible={isSettingsVisible}
           setCategory={setCategory}
+        />
+        <About
+          isAboutVisible={isAboutVisible}
+          setIsAboutVisible={setIsAboutVisible}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>© 2025 </Text>

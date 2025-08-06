@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Button, Modal, Portal, RadioButton } from "react-native-paper";
 import { useEffect, useState } from "react";
+import ClosePopup from "../common/ClosePopup";
 
 const Settings = ({ isSettingsVisible, hideSettings, setCategory }) => {
   const [value, setValue] = useState("default");
@@ -18,6 +19,7 @@ const Settings = ({ isSettingsVisible, hideSettings, setCategory }) => {
           contentContainerStyle={styles.modalContainer}
           dismissableBackButton={true}
         >
+          <ClosePopup onPress={hideSettings} />
           <View style={styles.container}>
             <Text style={styles.heading}>Categories</Text>
 
