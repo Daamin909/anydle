@@ -15,7 +15,6 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { Inter_700Bold } from "@expo-google-fonts/inter";
-import { ResetContext } from "../context/ResetContext";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 
 SplashScreen.preventAutoHideAsync();
@@ -26,7 +25,6 @@ const _layout = () => {
   const [hideModalFn, setHideModalFn] = useState(() => () => {});
   const [isSettingsVisible, setIsSettingsVisibleExternal] = useState(false);
 
-  const [handleResetFn, setHandleResetFn] = useState(() => () => {});
 
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
@@ -47,9 +45,6 @@ const _layout = () => {
     return null;
   }
   return (
-    <ResetContext.Provider
-      value={{ handleReset: handleResetFn, setHandleResetFn }}
-    >
       <ModalContext.Provider
         value={{
           showModal: showModalFn,
@@ -113,7 +108,6 @@ const _layout = () => {
           </AlertNotificationRoot>
         </GestureHandlerRootView>
       </ModalContext.Provider>
-    </ResetContext.Provider>
   );
 };
 

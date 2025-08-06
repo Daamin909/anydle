@@ -12,9 +12,9 @@ import { useModal } from "../context/ModalContext";
 import { Link } from "expo-router";
 import increaseScore from "../scripts/db/increaseScore";
 import calculateScore from "../utils/calculateScore";
-import { useReset } from "../context/ResetContext";
 import About from "../components/info/About";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -68,20 +68,43 @@ const index = () => {
   useEffect(() => {
     const scoreSave = async () => {
       if (guesses[currentWord - 1] == "GGGGG") {
-        const score = calculateScore(currentWord, category);
+        const { score, adjective } = calculateScore(currentWord, category);
         const success = await increaseScore(score);
+        var sus;
         if (!success) {
-          console.log("sign in to save score");
+          sus = "Sign in to save score.";
         } else {
-          console.log("score saved");
+          sus = "Score saved.";
         }
+        Toast.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: adjective,
+          textBody: `+${score} – ${sus}`,
+          autoClose: 2500,
+        });
+        setTimeout(resetGame, 2500);
       } else if (currentWord === 6) {
-        console.log("game over and could not guess");
+        console.log("game over and lost");
+        Toast.show({
+          type: ALERT_TYPE.DANGER,
+          title: `The word was ${wordle}`,
+          textBody: "Better luck next time!",
+          autoClose: 2500,
+        });
+        setTimeout(resetGame, 2500);
       }
     };
 
     scoreSave();
   }, [currentWord]);
+
+  const resetGame = () => {
+    setCategory("default");
+    setWordle(getRandomWord("default").toUpperCase());
+    setGuesses([null, null, null, null, null, null]);
+    setWords([null, null, null, null, null, null]);
+    setCurrentWord(0);
+  };
 
   const handlePress = (key) => {
     if (key == "enter") {
@@ -143,19 +166,6 @@ const index = () => {
       });
     }
   };
-
-  const { setHandleResetFn } = useReset();
-  const handleReset = () => {
-    console.log("Resetting game...");
-    setCategory("default");
-    setWordle(getRandomWord("default").toUpperCase());
-    setGuesses([null, null, null, null, null, null]);
-    setWords([null, null, null, null, null, null]);
-    setCurrentWord(0);
-  };
-  useEffect(() => {
-    setHandleResetFn(() => handleReset);
-  }, []);
 
   return (
     <PaperProvider>

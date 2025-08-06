@@ -3,20 +3,23 @@
 
 - ~~how to play wordle popup~~~~
 - ~~logged in page styling aka my account page~~
-- profile picture uploading
 
-- game completed feedback
-- couldn't solve feedback
-
-- animation for word reveal
+- ~~game completed feedback~~
+- ~~couldn't solve feedback~~
 - add fonts everywhere
-- logo
+
 - loading animation – for login, logout, sign up, leaderboard
 - add "Me" highlight for leaderboard
 
+- profile picture uploading
+- animation for word reveal
+
+- logo
+
 - enhancements
-    - enjoying? rate our app
+
+  - enjoying? rate our app
 
 - multiplayer
-    - add other users as a friend, friend requests
-    - create rooms, invite friends, join rooms using code
+  - add other users as a friend, friend requests
+  - create rooms, invite friends, join rooms using code
