@@ -81,6 +81,7 @@ const Settings = ({ isSettingsVisible, hideSettings, setCategory }) => {
                 buttonColor="#538d4e"
                 textColor="#fff"
                 disabled
+                labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 20 }}
                 style={styles.generateBtn}
               >
                 Generate
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
   badgeText: {
     color: "#121213",
     fontWeight: "600",
+    fontFamily: "Poppins_600SemiBold",
     fontSize: 10,
   },
   titleContainer: {
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 32,
-    fontWeight: "bold",
     color: "#ffffff",
+    fontFamily: "Inter_700Bold",
     marginBottom: 10,
   },
   radioItem: {
@@ -147,6 +149,7 @@ const styles = StyleSheet.create({
   radioLabel: {
     color: "#ffffff",
     fontSize: 16,
+    fontFamily: "Poppins_400Regular",
   },
   aiContainer: {
     width: "100%",
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 22,
     fontWeight: "600",
+    fontFamily: "Inter_700Bold",
   },
   input: {
     width: "100%",
@@ -169,6 +173,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 10,
     marginBottom: 12,
+    fontFamily: "Poppins_400Regular",
   },
   generateBtn: {
     borderRadius: 8,

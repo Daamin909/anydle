@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#f8f8f8",
     fontSize: 22,
-    fontFamily: "Nunito_800ExtraBold",
+    fontFamily: "RobotoMono_700Bold",
   },
   G_bg: { backgroundColor: "#538d4e" },
   Y_bg: { backgroundColor: "#b59f3b" },

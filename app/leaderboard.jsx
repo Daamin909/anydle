@@ -11,17 +11,22 @@ const Leaderboard = () => {
   const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
-      const data = await getLeaderboard();
-      setUsers(data);
-      setLoading(false);
-    };
-
-    fetchLeaderboard();
-
     const auth = getAuth(getApp());
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setSignedIn(!!user);
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log("vro is signed in");
+        setSignedIn(true);
+        setLoading(true); // Reset loading
+        const data = await getLeaderboard();
+        setUsers(data);
+        setLoading(false);
+      } else {
+        console.log("vro is signed out");
+        setSignedIn(false);
+        setUsers([]); // clear users when signed out
+        setLoading(false);
+      }
     });
 
     return () => unsubscribe();
@@ -38,8 +43,8 @@ const Leaderboard = () => {
           Please sign in to view the leaderboard.
         </Text>
       )}
-
       {signedIn &&
+        !loading &&
         users.map((user, index) => (
           <User
             key={`${user.username}-${index}`}
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
   container: { backgroundColor: "#121213", flex: 1 },
   heading: {
     color: "white",
-    fontFamily: "monospace",
+    fontFamily: "Inter_700Bold",
     fontSize: 30,
     fontWeight: "800",
     textAlign: "center",
@@ -68,6 +73,7 @@ const styles = StyleSheet.create({
   noData: {
     color: "#aaa",
     textAlign: "center",
+    fontFamily: "Inter_400Regular",
     fontSize: 18,
     marginTop: 30,
   },

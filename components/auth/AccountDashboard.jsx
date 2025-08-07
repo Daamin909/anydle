@@ -132,6 +132,7 @@ const AccountDashboard = ({ user }) => {
             mode="contained-tonal"
             onPress={() => Alert.alert("Change Password")}
             buttonColor="#538d4e"
+            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
             textColor="#f8f8f8"
           >
             Change Password
@@ -140,6 +141,7 @@ const AccountDashboard = ({ user }) => {
             mode="outlined"
             onPress={() => Alert.alert("Forgot Password")}
             style={styles.button}
+            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
             textColor="#ffe368ff"
           >
             Forgot Password
@@ -148,6 +150,7 @@ const AccountDashboard = ({ user }) => {
             mode="text"
             onPress={logout}
             textColor="#f87171"
+            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
             style={styles.logoutBtn}
           >
             Log Out
@@ -170,6 +173,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
     marginBottom: 24,
+    fontFamily: "Inter_700Bold",
   },
   avatar: {
     width: 150,
@@ -186,11 +190,13 @@ const styles = StyleSheet.create({
     color: "#818384",
     fontSize: 15,
     textTransform: "uppercase",
+    fontFamily: "Poppins_400Regular",
   },
   text: {
     fontSize: 18,
     color: "#ffffff",
     marginBottom: 8,
+    fontFamily: "Inter_400Regular",
   },
   buttonBox: {
     width: "100%",

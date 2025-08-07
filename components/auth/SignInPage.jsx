@@ -18,7 +18,7 @@ const SignInPage = ({ setShowSignUp }) => {
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
-        textBody: err,
+        textBody: err.message,
       });
     }
   };
@@ -55,6 +55,7 @@ const SignInPage = ({ setShowSignUp }) => {
         mode="text"
         onPress={() => setShowSignUp(true)}
         textColor="#ffdf52ff"
+        labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
       >
         Don't have an Account? Sign up.
       </Button>
@@ -64,7 +65,7 @@ const SignInPage = ({ setShowSignUp }) => {
         dark={true}
         buttonColor={"#538d4e"}
         textColor="#f8f8f8"
-        labelStyle={{ fontSize: 16 }}
+        labelStyle={{ fontSize: 16, fontFamily: "Inter_400Regular" }}
       >
         Sign In
       </Button>
@@ -86,8 +87,10 @@ const styles = StyleSheet.create({
     color: "#f8f8f8",
     fontSize: 18,
     borderRadius: 20,
+    fontFamily: "Inter_400Regular",
   },
   passwordContainer: {
+    fontFamily: "Inter_400Regular",
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 12,
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 10,
     margin: 10,
-    fontFamily: "monospace",
+    fontFamily: "Inter_700Bold",
   },
 });
 

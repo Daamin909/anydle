@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     minWidth: 40,
     textAlign: "center",
+    fontFamily: "Poppins_400Regular",
   },
   profilePic: {
     height: 42,
@@ -59,14 +60,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#3a3a3c",
   },
   name: {
-    fontSize: 18,
+    fontSize: 22,
     color: "#f8f8f8",
     flexShrink: 1,
+    fontFamily: "Inter_500Medium",
+    width: "100%",
   },
   score: {
     fontSize: 20,
-    fontWeight: "bold",
     color: "#f8f8f8",
     marginLeft: 10,
+    fontFamily: "Poppins_600SemiBold",
   },
 });

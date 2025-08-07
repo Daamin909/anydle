@@ -7,7 +7,7 @@ import SignInPage from "../components/auth/SignInPage";
 
 const Account = () => {
   const [user, setUser] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [showSignUp, setShowSignUp] = useState(false);
   useEffect(() => {
     const auth = getAuth();
     const the_user = auth.currentUser;

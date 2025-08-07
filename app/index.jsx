@@ -69,13 +69,6 @@ const index = () => {
     const scoreSave = async () => {
       if (guesses[currentWord - 1] == "GGGGG") {
         const { score, adjective } = calculateScore(currentWord, category);
-        const success = await increaseScore(score);
-        var sus;
-        if (!success) {
-          sus = "Sign in to save score.";
-        } else {
-          sus = "Score saved.";
-        }
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
           title: adjective,
@@ -83,6 +76,13 @@ const index = () => {
           autoClose: 2500,
         });
         setTimeout(resetGame, 2500);
+        const success = await increaseScore(score);
+        var sus;
+        if (!success) {
+          sus = "Sign in to save score.";
+        } else {
+          sus = "Score saved.";
+        }
       } else if (currentWord === 6) {
         console.log("game over and lost");
         Toast.show({
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   footerText: {
     color: "white",
     fontSize: 14,
-    fontFamily: "monospace",
+    fontFamily: "Poppins_400Regular",
   },
 });
 

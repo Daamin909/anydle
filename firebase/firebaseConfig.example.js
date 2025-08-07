@@ -29,7 +29,7 @@ const firebaseInit = () => {
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
-        textBody: error,
+        textBody: error.message,
       });
     }
   } else {
