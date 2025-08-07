@@ -6,15 +6,15 @@
 
 - ~~game completed feedback~~
 - ~~couldn't solve feedback~~
-- add fonts everywhere
+- ~~add fonts everywhere~~
+
+- ~~logo~~
 
 - loading animation – for login, logout, sign up, leaderboard
 - add "Me" highlight for leaderboard
 
 - profile picture uploading
 - animation for word reveal
-
-- logo
 
 - enhancements
 

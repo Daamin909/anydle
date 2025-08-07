@@ -72,17 +72,25 @@ const index = () => {
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
           title: adjective,
-          textBody: `+${score} – ${sus}`,
+          textBody: `+${score}`,
           autoClose: 2500,
         });
-        setTimeout(resetGame, 2500);
-        const success = await increaseScore(score);
         var sus;
+        const success = await increaseScore(score);
         if (!success) {
           sus = "Sign in to save score.";
         } else {
-          sus = "Score saved.";
+          sus = "Score Saved.";
         }
+        setTimeout(() => {
+          resetGame();
+          Toast.show({
+            type: success ? ALERT_TYPE.INFO : ALERT_TYPE.WARNING,
+            title: sus,
+            textBody: `+${score} added!`,
+            autoClose: 2500,
+          });
+        }, 1000);
       } else if (currentWord === 6) {
         console.log("game over and lost");
         Toast.show({

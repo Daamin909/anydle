@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 10,
     marginBottom: 12,
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Inter_400Regular",
   },
   generateBtn: {
     borderRadius: 8,

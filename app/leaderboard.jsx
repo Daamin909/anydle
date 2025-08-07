@@ -17,7 +17,7 @@ const Leaderboard = () => {
       if (user) {
         console.log("vro is signed in");
         setSignedIn(true);
-        setLoading(true); // Reset loading
+        setLoading(true);
         const data = await getLeaderboard();
         setUsers(data);
         setLoading(false);
@@ -47,7 +47,8 @@ const Leaderboard = () => {
         !loading &&
         users.map((user, index) => (
           <User
-            key={`${user.username}-${index}`}
+            key={user.id}
+            user_id={user.id}
             name={user.username}
             score={user.score}
             rank={index + 1}

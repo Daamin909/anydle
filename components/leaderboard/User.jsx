@@ -1,16 +1,37 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
-const User = ({ profilePic, name, score, rank }) => {
+const User = ({ profilePic, name, score, rank, user_id }) => {
+  const [uuid, setUuid] = useState(null);
   const getRankColor = () => {
     if (rank === 1) return "#6aaa64";
     if (rank === 2) return "#c9b458";
     if (rank === 3) return "#7b9daeff";
     return "#c5c5c5ff";
   };
-
+  useEffect(() => {
+    try {
+      const app = getApp();
+      const auth = getAuth(app);
+      const user = auth?.currentUser;
+      const id = user.uid;
+      setUuid(id);
+    } catch (err) {
+      console.log(err, "leaderboard auth thingy");
+    }
+  }, []);
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        user_id === uuid && {
+          borderColor: "#538d4e",
+          transform: "scale(1.03)",
+        },
+      ]}
+    >
       <View style={styles.innerContainer}>
         <Text style={[styles.rank, { color: getRankColor() }]}>#{rank}</Text>
         <Image
@@ -36,8 +57,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 10,
+    marginVertical: 7,
     paddingVertical: 12,
     paddingHorizontal: 16,
+    borderRadius: 15,
+    borderColor: "#f8f8f8",
+    borderWidth: 2,
   },
   innerContainer: {
     flexDirection: "row",
@@ -50,7 +75,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     minWidth: 40,
     textAlign: "center",
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Inter_400Regular",
   },
   profilePic: {
     height: 42,
@@ -70,6 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#f8f8f8",
     marginLeft: 10,
-    fontFamily: "Poppins_600SemiBold",
+    fontFamily: "Inter_600SemiBold",
   },
 });
