@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Button, TextInput } from "react-native";
 import {
   getAuth,
   onAuthStateChanged,
-  signOut,
 } from "@react-native-firebase/auth";
 import SignUpPage from "../components/auth/SignUpPage";
 import AccountDashboard from "../components/auth/AccountDashboard";
