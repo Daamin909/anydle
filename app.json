@@ -26,16 +26,17 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font",
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/ClearSans-Bold.ttf"]
-        }
-      ]
+      "expo-font"
     ],
     "ios": {
       "bundleIdentifier": "com.daamin.anydle"
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "5ac62786-7369-4cb6-9d4f-2281cfe2d2c6"
+      }
+    },
+    "owner": "daamin101"
   }
 }
