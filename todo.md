@@ -10,11 +10,12 @@
 
 - ~~logo~~
 
-- loading animation – for login, logout, sign up, leaderboard
-- add "Me" highlight for leaderboard
+- ~~add "Me" highlight for leaderboard~~
+- ~~loading animation – for login, logout, sign up, leaderboard~~
+- ~~forgot password~~
 
-- profile picture uploading
 - animation for word reveal
+- profile picture uploading
 
 - enhancements
 

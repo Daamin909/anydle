@@ -4,6 +4,7 @@ import getLeaderboard from "../scripts/db/getLeaderboard";
 import User from "../components/leaderboard/User";
 import { getApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import AnimatedLoader from "react-native-animated-loader";
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -36,9 +37,16 @@ const Leaderboard = () => {
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>All-Time Leaderboard</Text>
 
-      {loading && signedIn && <Text style={styles.noData}>Loading...</Text>}
+      {loading && signedIn && (
+        <AnimatedLoader
+          visible={true}
+          animationStyle={styles.lottie}
+          speed={1}
+          source={require("../assets/json/loading.json")}
+        ></AnimatedLoader>
+      )}
 
-      {!signedIn && (
+      {!loading && !signedIn && (
         <Text style={styles.noData}>
           Please sign in to view the leaderboard.
         </Text>
@@ -61,6 +69,10 @@ const Leaderboard = () => {
 export default Leaderboard;
 
 const styles = StyleSheet.create({
+  lottie: {
+    width: 200,
+    height: 200,
+  },
   container: { backgroundColor: "#121213", flex: 1 },
   heading: {
     color: "white",

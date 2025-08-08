@@ -32,6 +32,7 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
     "react-native-alert-notification": "^0.4.2",
+    "react-native-animated-loader": "^1.0.0",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-paper": "^5.14.5",
