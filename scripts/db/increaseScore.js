@@ -1,12 +1,12 @@
-import { getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getApp } from "@react-native-firebase/app";
+import { getAuth } from "@react-native-firebase/auth";
 import {
   doc,
   getDoc,
   getFirestore,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
+} from "@react-native-firebase/firestore";
 
 const increaseScore = async (points) => {
   const app = getApp();

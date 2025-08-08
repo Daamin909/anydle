@@ -1,5 +1,5 @@
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { getApp } from "firebase/app";
+import { getAuth, sendPasswordResetEmail } from "@react-native-firebase/auth";
+import { getApp } from "@react-native-firebase/app";
 
 const forgotPassword = async (email) => {
   const app = getApp();

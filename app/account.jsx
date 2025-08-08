@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Button, TextInput } from "react-native";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+} from "@react-native-firebase/auth";
 import SignUpPage from "../components/auth/SignUpPage";
 import AccountDashboard from "../components/auth/AccountDashboard";
 import SignInPage from "../components/auth/SignInPage";
-import { getApp } from "firebase/app";
+import { getApp } from "@react-native-firebase/app";
 
 const Account = () => {
   const [user, setUser] = useState(false);

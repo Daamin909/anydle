@@ -2,7 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
+} from "@react-native-firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signUpWithEmail = async (email, password, name) => {

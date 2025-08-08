@@ -2,8 +2,8 @@ import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import getLeaderboard from "../scripts/db/getLeaderboard";
 import User from "../components/leaderboard/User";
-import { getApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getApp } from "@react-native-firebase/app";
+import { getAuth, onAuthStateChanged } from "@react-native-firebase/auth";
 import AnimatedLoader from "react-native-animated-loader";
 
 const Leaderboard = () => {

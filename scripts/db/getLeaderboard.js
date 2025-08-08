@@ -1,11 +1,11 @@
-import { getApp } from "firebase/app";
+import { getApp } from "@react-native-firebase/app";
 import {
   collection,
   query,
   orderBy,
   getDocs,
   getFirestore,
-} from "firebase/firestore";
+} from "@react-native-firebase/firestore";
 
 const getLeaderboard = async () => {
   const app = getApp();

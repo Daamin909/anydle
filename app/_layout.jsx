@@ -4,7 +4,6 @@ import { StyleSheet, View } from "react-native";
 import Navbar from "../components/navbar/Navbar";
 import { ModalContext } from "../context/ModalContext";
 import { useState, useEffect } from "react";
-import firebaseInit from "../firebase/firebaseConfig";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { AlertNotificationRoot } from "react-native-alert-notification";
@@ -24,8 +23,7 @@ import {
 
 SplashScreen.preventAutoHideAsync();
 
-firebaseInit();
-const _layout = () => {
+=const _layout = () => {
   const [showModalFn, setShowModalFn] = useState(() => () => {});
   const [hideModalFn, setHideModalFn] = useState(() => () => {});
   const [isSettingsVisible, setIsSettingsVisibleExternal] = useState(false);

@@ -1,4 +1,4 @@
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "@react-native-firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const logout = async () => {

@@ -1,4 +1,7 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "@react-native-firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signInWithEmail = async (email, password) => {

@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getApp } from "@react-native-firebase/app";
+import { getAuth } from "@react-native-firebase/auth";
 
 const User = ({ pfpURL, name, score, rank, user_id }) => {
   const [uuid, setUuid] = useState(null);

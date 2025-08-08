@@ -25,7 +25,13 @@
     "web": {
       "favicon": "./assets/branding/logo.png"
     },
-    "plugins": ["expo-router", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/firestore"
+    ],
     "ios": {
       "bundleIdentifier": "com.daamin.anydle"
     },
