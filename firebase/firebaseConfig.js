@@ -1,44 +1,64 @@
-import {
-  initializeAuth,
-  getReactNativePersistence,
-  getAuth,
-} from "firebase/auth";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
-import { getApp, getApps, initializeApp } from "firebase/app";
-import { ALERT_TYPE, Toast } from "react-native-alert-notification";
-import { getFirestore } from "firebase/firestore";
+import { getApps, initializeApp, getApp } from "firebase/app";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+import Constants from "expo-constants";
+import { Platform } from "react-native";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+
+const webFirebaseConfig = {
+  apiKey: "AIzaSyAP8fZ2o9zquGItpyVSQICsK9j3-lE86sw",
+  authDomain: "anydle101.firebaseapp.com",
+  projectId: "anydle101",
+  storageBucket: "anydle101.appspot.com",
+  messagingSenderId: "829594006872",
+  appId: "1:829594006872:web:8eddcfe52fbb7bc386a12d",
+  measurementId: "G-9N2348RKRV",
+};
 
 const firebaseInit = () => {
-  // insert according to your own config
-  const firebaseConfig = {
-    apiKey: "AIzaSyAP8fZ2o9zquGItpyVSQICsK9j3-lE86sw",
-    authDomain: "anydle101.firebaseapp.com",
-    projectId: "anydle101",
-    storageBucket: "anydle101.firebasestorage.app",
-    messagingSenderId: "829594006872",
-    appId: "1:829594006872:web:8eddcfe52fbb7bc386a12d",
-    measurementId: "G-9N2348RKRV",
-  };
+  try {
+    let app;
 
-  if (!getApps().length) {
-    try {
-      const app = initializeApp(firebaseConfig);
-      const auth = initializeAuth(app, {
-        persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-      });
-    } catch (error) {
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: "Error",
-        textBody: error,
-      });
+    if (!getApps().length) {
+      const isWeb = Platform.OS === "web";
+      const isExpoGo = Constants.appOwnership === "expo";
+
+      if (isWeb || isExpoGo) {
+        // Expo Go or Web: must use explicit config
+        app = initializeApp(webFirebaseConfig);
+      } else {
+        // Standalone native app: try native config, fallback to web config
+        try {
+          app = initializeApp();
+        } catch (nativeErr) {
+          console.warn(
+            "Native Firebase config missing or invalid, falling back to web config",
+            nativeErr
+          );
+          app = initializeApp(webFirebaseConfig);
+        }
+      }
+    } else {
+      app = getApp();
     }
-  } else {
-    const app = getApp();
-    const auth = getAuth(app);
+
+    const auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
     const db = getFirestore(app);
     const storage = getStorage(app);
+
+    return { app, auth, db, storage };
+  } catch (error) {
+    console.error("Firebase init error:", error);
+    Toast.show({
+      type: ALERT_TYPE.DANGER,
+      title: "Firebase Init Error",
+      textBody: error.message || String(error),
+    });
+    return null;
   }
 };
 

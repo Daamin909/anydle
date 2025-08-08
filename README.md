@@ -10,7 +10,8 @@
  <img src ="https://hackatime-badge.hackclub.com/U07GLQY6UN4/anydle?color=red&label=Time%20Spent">
 </p>
 
-Anydle is an improved version of the famous daily game called Wordle by the New York Times.
+Anydle is an improved version of the famous daily game called Wordle by the New York Times. It keeps the 5-letter word guessing system, within 6 chances but adds a clean twist – **Categories**. In addition to the standard mode, you can choose from four presets : Tech, Science and Sports. When you pick a category, all possible answers relate only to that theme, making a new fun game mode. Instead of the daily word format, Anydle has an infinite word game mode – which never ends.
+
 ## Demo
 
 Insert gif or link to demo
@@ -21,16 +22,7 @@ Insert gif or link to demo
 
 ## Feedback
 
-If you have any feedback, please reach out to us at fake@fake.com
-
-## Color Reference
-
-| Color         | Hex                                                              |
-| ------------- | ---------------------------------------------------------------- |
-| Example Color | ![#0a192f](https://via.placeholder.com/10/0a192f?text=+) #0a192f |
-| Example Color | ![#f8f8f8](https://via.placeholder.com/10/f8f8f8?text=+) #f8f8f8 |
-| Example Color | ![#00b48a](https://via.placeholder.com/10/00b48a?text=+) #00b48a |
-| Example Color | ![#00d1a0](https://via.placeholder.com/10/00b48a?text=+) #00d1a0 |
+If you have any feedback, please reach out to me at ashai.daamin@gmail.com
 
 ## Installation
 

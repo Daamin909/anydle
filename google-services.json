@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "829594006872",
+    "project_id": "anydle101",
+    "storage_bucket": "anydle101.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829594006872:android:fffb4f704e78ac0386a12d",
+        "android_client_info": {
+          "package_name": "com.daamin.anydle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829594006872-kt8gp76n46rsbs32up6be2qaohujlb7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADQODcDqI-JYv2cy58CIywQe12PfX1P9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829594006872-kt8gp76n46rsbs32up6be2qaohujlb7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

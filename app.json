@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "anydle",
+    "name": "Anydle",
     "slug": "anydle",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.daamin.anydle"
+      "package": "com.daamin.anydle",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/branding/logo.png"
