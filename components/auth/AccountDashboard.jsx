@@ -10,35 +10,10 @@ import {
 import logout from "../../auth/logout";
 import * as ImagePicker from "expo-image-picker";
 import { Button, Menu, Provider } from "react-native-paper";
-import { IconButton } from "react-native-paper";
 import forgotPassword from "../../auth/forgotPassword";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const AccountDashboard = ({ user }) => {
-  const [photo, setPhoto] = useState(user?.providerData[0]?.photoURL || null);
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  const handlePhotoChange = async () => {
-    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permission.granted) {
-      Alert.alert("Permission needed", "We need access to your photos.");
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
-
-    if (!result.canceled) {
-      setPhoto(result.assets[0].uri);
-    }
-    setMenuVisible(false);
-  };
-
-  const handleRemovePhoto = () => {
-    setPhoto(null);
-    setMenuVisible(false);
-  };
   const handleForgotPassword = async () => {
     const success = await forgotPassword(user.email);
     if (success) {
@@ -61,89 +36,20 @@ const AccountDashboard = ({ user }) => {
     <Provider>
       <View style={styles.container}>
         <Text style={styles.heading}>My Account</Text>
-        <Menu
-          visible={menuVisible}
-          onDismiss={() => setMenuVisible(false)}
-          anchor={
-            <TouchableOpacity onPress={() => setMenuVisible(true)}>
-              <Image
-                source={
-                  photo
-                    ? { uri: photo }
-                    : require("../../assets/placeholder.jpg")
-                }
-                style={styles.avatar}
-              />
-            </TouchableOpacity>
+        <Image
+          source={
+            user?.photoURL
+              ? { uri: user.photoURL }
+              : require("../../assets/placeholder.jpg")
           }
-        >
-          <Menu.Item
-            onPress={async () => {
-              const permission =
-                await ImagePicker.requestCameraPermissionsAsync();
-              if (!permission.granted) {
-                Alert.alert(
-                  "Permission needed",
-                  "We need access to your camera."
-                );
-                return;
-              }
-
-              const result = await ImagePicker.launchCameraAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              });
-
-              if (!result.canceled) {
-                setPhoto(result.assets[0].uri);
-              }
-
-              setMenuVisible(false);
-            }}
-            title="Take Photo"
-          />
-
-          <Menu.Item
-            onPress={async () => {
-              const permission =
-                await ImagePicker.requestMediaLibraryPermissionsAsync();
-              if (!permission.granted) {
-                Alert.alert(
-                  "Permission needed",
-                  "We need access to your photos."
-                );
-                return;
-              }
-
-              const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              });
-
-              if (!result.canceled) {
-                setPhoto(result.assets[0].uri);
-              }
-
-              setMenuVisible(false);
-            }}
-            title="Choose from Gallery"
-          />
-
-          <Menu.Item
-            onPress={() => {
-              setPhoto(null);
-              setMenuVisible(false);
-            }}
-            title="Remove Photo"
-          />
-        </Menu>
-
+          style={styles.avatar}
+        />
         <View style={styles.infoBox}>
           <Text style={styles.label}>Email</Text>
           <Text style={styles.text}>{user?.email}</Text>
 
           <Text style={styles.label}>Username</Text>
-          <Text style={styles.text}>
-            {user?.providerData[0]?.displayName || "Not set"}
-          </Text>
+          <Text style={styles.text}>{user?.displayName || "Not set"}</Text>
         </View>
 
         <View style={styles.buttonBox}>

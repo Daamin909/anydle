@@ -6,7 +6,7 @@ import { signUpSchema } from "../../utils/authSchema";
 import signUpWithEmail from "../../auth/signUp";
 import AnimatedLoader from "react-native-animated-loader";
 
-const SignUpPage = ({ setShowSignUp }) => {
+const SignUpPage = ({ setShowSignUp, setReload }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -17,6 +17,7 @@ const SignUpPage = ({ setShowSignUp }) => {
       await signUpSchema.validate({ name, email, password });
       setLoading(true);
       await signUpWithEmail(email, password, name);
+      setReload((prev) => !prev);
     } catch (err) {
       Toast.show({
         type: ALERT_TYPE.DANGER,

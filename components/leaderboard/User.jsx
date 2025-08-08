@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-const User = ({ profilePic, name, score, rank, user_id }) => {
+const User = ({ pfpURL, name, score, rank, user_id }) => {
   const [uuid, setUuid] = useState(null);
   const getRankColor = () => {
     if (rank === 1) return "#6aaa64";
@@ -36,7 +36,8 @@ const User = ({ profilePic, name, score, rank, user_id }) => {
         <Text style={[styles.rank, { color: getRankColor() }]}>#{rank}</Text>
         <Image
           source={{
-            uri: `https://picsum.photos/seed/${Math.random()}/200/300`,
+            uri:
+              pfpURL || `https://picsum.photos/seed/${Math.random()}/200/300`,
           }}
           style={styles.profilePic}
         />

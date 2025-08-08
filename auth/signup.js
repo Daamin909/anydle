@@ -16,11 +16,16 @@ const signUpWithEmail = async (email, password, name) => {
       password
     );
     const user = userCredential.user;
+    const seed = encodeURIComponent(email);
+    const pfpUrl = `https://picsum.photos/seed/${seed}/200`;
     await updateProfile(user, {
-      displayName: name,
+      displayName: name.trim(),
+      photoURL: pfpUrl,
     });
+    await user.reload();
     console.log("User created");
-    console.log("Display name set to:", user.displayName);
+    console.log("Display name sett to:", user.displayName);
+    console.log("profile pic: ", pfpUrl);
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;

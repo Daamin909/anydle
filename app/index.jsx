@@ -90,7 +90,7 @@ const index = () => {
             textBody: `+${score} added!`,
             autoClose: 2500,
           });
-        }, 1000);
+        }, 2000);
       } else if (currentWord === 6) {
         console.log("game over and lost");
         Toast.show({

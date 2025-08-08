@@ -4,10 +4,13 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import SignUpPage from "../components/auth/SignUpPage";
 import AccountDashboard from "../components/auth/AccountDashboard";
 import SignInPage from "../components/auth/SignInPage";
+import { getApp } from "firebase/app";
 
 const Account = () => {
   const [user, setUser] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [reload, setReload] = useState(false);
+
   useEffect(() => {
     const auth = getAuth();
     const the_user = auth.currentUser;
@@ -17,10 +20,10 @@ const Account = () => {
     } else {
       setUser(null);
     }
-
-    const unsubscribe = onAuthStateChanged(auth, (the_user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (the_user) => {
       if (the_user) {
-        setUser(the_user);
+        await the_user.reload();
+        setUser({ ...the_user });
       } else {
         setUser(null);
       }
@@ -29,9 +32,20 @@ const Account = () => {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    const thingy = async () => {
+      const app = getApp();
+      const auth = getAuth(app);
+      await auth.currentUser.reload();
+      setUser(auth.currentUser);
+    };
+    thingy();
+  }, [reload]);
   return (
     <View style={styles.container}>
-      {!user && showSignUp && <SignUpPage setShowSignUp={setShowSignUp} />}
+      {!user && showSignUp && (
+        <SignUpPage setShowSignUp={setShowSignUp} setReload={setReload} />
+      )}
       {!user && !showSignUp && <SignInPage setShowSignUp={setShowSignUp} />}
       {user && <AccountDashboard user={user} />}
     </View>

@@ -51,6 +51,9 @@ const Leaderboard = () => {
           Please sign in to view the leaderboard.
         </Text>
       )}
+      {signedIn && !loading && users.length == 0 && (
+        <Text style={styles.noData}>No users found.</Text>
+      )}
       {signedIn &&
         !loading &&
         users.map((user, index) => (
@@ -59,6 +62,7 @@ const Leaderboard = () => {
             user_id={user.id}
             name={user.username}
             score={user.score}
+            pfpURL={user.photoURL}
             rank={index + 1}
           />
         ))}

@@ -29,6 +29,7 @@ const increaseScore = async (points) => {
     await setDoc(scoreRef, {
       email: user.email,
       username: user.displayName,
+      photoURL: user.photoURL,
       score: points,
       lastUpdated: new Date(),
     });
