@@ -24,10 +24,7 @@
     "web": {
       "favicon": "./assets/branding/logo.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ],
+    "plugins": ["expo-router", "expo-font"],
     "ios": {
       "bundleIdentifier": "com.daamin.anydle"
     },
