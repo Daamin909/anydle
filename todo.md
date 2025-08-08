@@ -14,8 +14,8 @@
 - ~~loading animation – for login, logout, sign up, leaderboard~~
 - ~~forgot password~~
 
-- animation for word reveal
-- profile picture uploading
+- ~~animation for word reveal~~
+- ~~profile picture uploading~~
 
 - enhancements
 
