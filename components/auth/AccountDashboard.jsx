@@ -11,6 +11,8 @@ import logout from "../../auth/logout";
 import * as ImagePicker from "expo-image-picker";
 import { Button, Menu, Provider } from "react-native-paper";
 import { IconButton } from "react-native-paper";
+import forgotPassword from "../../auth/forgotPassword";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const AccountDashboard = ({ user }) => {
   const [photo, setPhoto] = useState(user?.providerData[0]?.photoURL || null);
@@ -37,7 +39,24 @@ const AccountDashboard = ({ user }) => {
     setPhoto(null);
     setMenuVisible(false);
   };
-
+  const handleForgotPassword = async () => {
+    const success = await forgotPassword(user.email);
+    if (success) {
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "Email sent!",
+        textBody: `Password reset link sent to ${user.email}`,
+        autoClose: 1500,
+      });
+    } else {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Error",
+        textBody: `Couldn't send reset link, try again.`,
+        autoClose: 1500,
+      });
+    }
+  };
   return (
     <Provider>
       <View style={styles.container}>
@@ -130,19 +149,11 @@ const AccountDashboard = ({ user }) => {
         <View style={styles.buttonBox}>
           <Button
             mode="contained-tonal"
-            onPress={() => Alert.alert("Change Password")}
-            buttonColor="#538d4e"
-            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
-            textColor="#f8f8f8"
-          >
-            Change Password
-          </Button>
-          <Button
-            mode="outlined"
-            onPress={() => Alert.alert("Forgot Password")}
+            onPress={handleForgotPassword}
             style={styles.button}
-            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
-            textColor="#ffe368ff"
+            labelStyle={{ fontFamily: "Inter_500Medium", fontSize: 16 }}
+            textColor="#000"
+            buttonColor="#ffe368ff"
           >
             Forgot Password
           </Button>
@@ -150,7 +161,7 @@ const AccountDashboard = ({ user }) => {
             mode="text"
             onPress={logout}
             textColor="#f87171"
-            labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
+            labelStyle={{ fontFamily: "Inter_500Medium", fontSize: 16 }}
             style={styles.logoutBtn}
           >
             Log Out

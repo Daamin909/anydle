@@ -4,32 +4,44 @@ import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { Button, IconButton } from "react-native-paper";
 import { signInSchema } from "../../utils/authSchema";
 import signInWithEmail from "../../auth/signIn";
+import AnimatedLoader from "react-native-animated-loader";
 
 const SignInPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handlePress = async () => {
     try {
       await signInSchema.validate({ email, password });
+      setLoading(true);
       await signInWithEmail(email, password);
     } catch (err) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
         textBody: err.message,
+        autoClose: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
+      <AnimatedLoader
+        visible={loading}
+        animationStyle={styles.lottie}
+        source={require("../../assets/json/loading.json")}
+        speed={1}
+      ></AnimatedLoader>
       <Text style={styles.heading}>Sign In</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
+        editable={!loading}
         onChangeText={setEmail}
         placeholderTextColor={"#ffffff8a"}
         autoCapitalize="none"
@@ -42,11 +54,13 @@ const SignInPage = ({ setShowSignUp }) => {
           value={password}
           onChangeText={setPassword}
           placeholderTextColor={"#ffffff8a"}
+          editable={!loading}
           secureTextEntry={!showPassword}
         />
         <IconButton
           icon={showPassword ? "eye-off" : "eye"}
           size={20}
+          disabled={loading}
           iconColor="#ffffff8a"
           onPress={() => setShowPassword((prev) => !prev)}
         />
@@ -55,6 +69,7 @@ const SignInPage = ({ setShowSignUp }) => {
         mode="text"
         onPress={() => setShowSignUp(true)}
         textColor="#ffdf52ff"
+        disabled={loading}
         labelStyle={{ fontFamily: "Inter_400Regular", fontSize: 16 }}
       >
         Don't have an Account? Sign up.
@@ -62,6 +77,7 @@ const SignInPage = ({ setShowSignUp }) => {
       <Button
         onPress={handlePress}
         mode="contained-tonal"
+        disabled={loading}
         dark={true}
         buttonColor={"#538d4e"}
         textColor="#f8f8f8"
@@ -106,6 +122,10 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     fontFamily: "Inter_700Bold",
+  },
+  lottie: {
+    width: 200,
+    height: 200,
   },
 });
 

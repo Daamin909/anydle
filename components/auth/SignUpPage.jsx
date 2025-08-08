@@ -4,28 +4,39 @@ import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { Button, IconButton } from "react-native-paper";
 import { signUpSchema } from "../../utils/authSchema";
 import signUpWithEmail from "../../auth/signUp";
+import AnimatedLoader from "react-native-animated-loader";
 
 const SignUpPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handlePress = async () => {
     try {
       await signUpSchema.validate({ name, email, password });
+      setLoading(true);
       await signUpWithEmail(email, password, name);
     } catch (err) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
         textBody: err.message,
+        autoClose: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
+      <AnimatedLoader
+        visible={loading}
+        animationStyle={styles.lottie}
+        source={require("../../assets/json/loading.json")}
+        speed={1}
+      ></AnimatedLoader>
       <Text style={styles.heading}>Sign Up</Text>
       <TextInput
         style={styles.input}
@@ -114,6 +125,10 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     fontFamily: "Inter_700Bold",
+  },
+  lottie: {
+    width: 200,
+    height: 200,
   },
 });
 
