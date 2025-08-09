@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  Image,
+  Dimensions,
+} from "react-native";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { Button, IconButton } from "react-native-paper";
 import { signUpSchema } from "../../utils/authSchema";
 import signUpWithEmail from "../../auth/signUp";
-import AnimatedLoader from "react-native-animated-loader";
 
 const SignUpPage = ({ setShowSignUp, setReload }) => {
   const [email, setEmail] = useState("");
@@ -32,12 +38,14 @@ const SignUpPage = ({ setShowSignUp, setReload }) => {
 
   return (
     <View style={styles.container}>
-      <AnimatedLoader
-        visible={loading}
-        animationStyle={styles.lottie}
-        source={require("../../assets/json/loading.json")}
-        speed={1}
-      ></AnimatedLoader>
+      {loading && (
+        <View style={styles.overlay}>
+          <Image
+            style={styles.lottie}
+            source={require("../../assets/loading.gif")}
+          />
+        </View>
+      )}
       <Text style={styles.heading}>Sign Up</Text>
       <TextInput
         style={styles.input}
@@ -92,6 +100,7 @@ const SignUpPage = ({ setShowSignUp, setReload }) => {
     </View>
   );
 };
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -130,6 +139,16 @@ const styles = StyleSheet.create({
   lottie: {
     width: 200,
     height: 200,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width,
+    height,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
   },
 });
 

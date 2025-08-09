@@ -1,10 +1,16 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Dimensions,
+} from "react-native";
 import { useEffect, useState } from "react";
 import getLeaderboard from "../scripts/db/getLeaderboard";
 import User from "../components/leaderboard/User";
 import { getApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import AnimatedLoader from "react-native-animated-loader";
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -36,12 +42,12 @@ const Leaderboard = () => {
       <Text style={styles.heading}>All-Time Leaderboard</Text>
 
       {loading && signedIn && (
-        <AnimatedLoader
-          visible={true}
-          animationStyle={styles.lottie}
-          speed={1}
-          source={require("../assets/json/loading.json")}
-        ></AnimatedLoader>
+        <View style={styles.overlay}>
+          <Image
+            style={styles.lottie}
+            source={require("../assets/loading.gif")}
+          />
+        </View>
       )}
 
       {!loading && !signedIn && (
@@ -70,6 +76,8 @@ const Leaderboard = () => {
 
 export default Leaderboard;
 
+const { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   lottie: {
     width: 200,
@@ -91,5 +99,15 @@ const styles = StyleSheet.create({
     fontFamily: "Inter_400Regular",
     fontSize: 18,
     marginTop: 30,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width,
+    height,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
   },
 });

@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  Image,
+  Dimensions,
+} from "react-native";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { Button, IconButton } from "react-native-paper";
 import { signInSchema } from "../../utils/authSchema";
 import signInWithEmail from "../../auth/signIn";
-import AnimatedLoader from "react-native-animated-loader";
 
 const SignInPage = ({ setShowSignUp }) => {
   const [email, setEmail] = useState("");
@@ -30,12 +36,14 @@ const SignInPage = ({ setShowSignUp }) => {
 
   return (
     <View style={styles.container}>
-      <AnimatedLoader
-        visible={loading}
-        animationStyle={styles.lottie}
-        source={require("../../assets/json/loading.json")}
-        speed={1}
-      ></AnimatedLoader>
+      {loading && (
+        <View style={styles.overlay}>
+          <Image
+            style={styles.lottie}
+            source={require("../../assets/loading.gif")}
+          />
+        </View>
+      )}
       <Text style={styles.heading}>Sign In</Text>
       <TextInput
         style={styles.input}
@@ -88,11 +96,22 @@ const SignInPage = ({ setShowSignUp }) => {
     </View>
   );
 };
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     padding: 16,
     paddingTop: 50,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width,
+    height,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
   },
   input: {
     marginVertical: 12,
