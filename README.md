@@ -12,13 +12,18 @@
 
 Anydle is an improved version of the famous daily game called Wordle by the New York Times. It keeps the 5-letter word guessing system, within 6 chances but adds a clean twist – **Categories**. In addition to the standard mode, you can choose from four presets : Tech, Science and Sports. When you pick a category, all possible answers relate only to that theme, making a new fun game mode. Instead of the daily word format, Anydle has an infinite word game mode – which never ends.
 
+<!--
 ## Demo
 
-Insert gif or link to demo
+Insert gif or link to demo -->
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+| ![Screenshot 1](assets/readme/1.png) | ![Screenshot 8](assets/readme/8.png) |
+| ------------------------------------ | ------------------------------------ |
+| ![Screenshot 2](assets/readme/2.png) | ![Screenshot 4](assets/readme/4.png) |
+| ![Screenshot 7](assets/readme/7.png) | ![Screenshot 6](assets/readme/6.png) |
+| ![Screenshot 3](assets/readme/3.png) | ![Screenshot 5](assets/readme/5.png) |
 
 ## Feedback
 
@@ -26,20 +31,20 @@ If you have any feedback, please reach out to me at ashai.daamin@gmail.com
 
 ## Installation
 
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
+Download the .apk from the latest Release.
+App will also be published to the Play Store soon.
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Infinite Words instead of Daily
+- Categories of words to guess from a Preset.
+- Real-time Leaderboard
+- Authentication with Email
+- Account with Profile Pic and Username.
+- Ability to custom generate a category (coming soon)
+- Adding friends (coming soon)
+- Multiplayer (coming soon)
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[CC BY-NC 4.0-Modified](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
