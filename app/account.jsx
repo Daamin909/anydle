@@ -12,7 +12,8 @@ const Account = () => {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    const auth = getAuth();
+    const app = getApp();
+    const auth = getAuth(app);
     const the_user = auth.currentUser;
 
     if (the_user) {

@@ -1,9 +1,17 @@
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { getApp } from "firebase/app";
+import {
+  collection,
+  query,
+  orderBy,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const getLeaderboard = async () => {
   try {
+    const app = getApp();
+    const db = getFirestore(app);
     const q = query(collection(db, "leaderboard"), orderBy("score", "desc"));
     const snap = await getDocs(q);
     const leaderboard = [];

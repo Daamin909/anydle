@@ -1,3 +1,4 @@
+import "../firebaseConfig";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { StyleSheet, View } from "react-native";
@@ -7,7 +8,6 @@ import { useState, useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { AlertNotificationRoot } from "react-native-alert-notification";
-
 // font imports
 import {
   Inter_400Regular,

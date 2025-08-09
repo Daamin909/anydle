@@ -1,3 +1,4 @@
+import { getApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -6,7 +7,7 @@ import {
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signUpWithEmail = async (email, password, name) => {
-  const auth = getAuth();
+  const auth = getAuth(getApp());
   auth.useDeviceLanguage();
 
   try {

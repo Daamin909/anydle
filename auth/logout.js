@@ -1,8 +1,9 @@
+import { getApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const logout = async () => {
-  const auth = getAuth();
+  const auth = getAuth(getApp());
   try {
     await signOut(auth);
   } catch (error) {

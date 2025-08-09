@@ -35,6 +35,7 @@
         "projectId": "5ac62786-7369-4cb6-9d4f-2281cfe2d2c6"
       }
     },
-    "owner": "daamin101"
+    "owner": "daamin101",
+    "platforms": ["ios", "android", "web"]
   }
 }

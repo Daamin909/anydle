@@ -1,8 +1,9 @@
+import { getApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signInWithEmail = async (email, password) => {
-  const auth = getAuth();
+  const auth = getAuth(getApp());
   auth.useDeviceLanguage();
 
   try {

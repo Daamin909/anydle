@@ -1,9 +1,19 @@
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../../firebaseConfig";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc,
+  getFirestore,
+} from "firebase/firestore";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import { getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const increaseScore = async (points) => {
   try {
+    const app = getApp();
+    const auth = getAuth(app);
+    const db = getFirestore(app);
     const user = auth.currentUser;
     if (!user) {
       return null;
