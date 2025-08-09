@@ -1,7 +1,4 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from "@react-native-firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signInWithEmail = async (email, password) => {
@@ -15,7 +12,6 @@ const signInWithEmail = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log("User signed in");
   } catch (error) {
     const errorMessage = error.message;
     Toast.show({

@@ -2,8 +2,8 @@ import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import getLeaderboard from "../scripts/db/getLeaderboard";
 import User from "../components/leaderboard/User";
-import { getApp } from "@react-native-firebase/app";
-import { getAuth, onAuthStateChanged } from "@react-native-firebase/auth";
+import { getApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AnimatedLoader from "react-native-animated-loader";
 
 const Leaderboard = () => {
@@ -16,14 +16,12 @@ const Leaderboard = () => {
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("vro is signed in");
         setSignedIn(true);
         setLoading(true);
         const data = await getLeaderboard();
         setUsers(data);
         setLoading(false);
       } else {
-        console.log("vro is signed out");
         setSignedIn(false);
         setUsers([]); // clear users when signed out
         setLoading(false);

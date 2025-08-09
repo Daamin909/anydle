@@ -47,7 +47,11 @@ const index = () => {
           await AsyncStorage.setItem("aboutShown", "true");
         }
       } catch (err) {
-        console.error("popup", err);
+        Toast.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Error",
+          textBody: err.message,
+        });
       }
     };
 
@@ -64,7 +68,6 @@ const index = () => {
     setWordle(getRandomWord(category).toUpperCase());
   }, [category]);
 
-  console.log(wordle);
   useEffect(() => {
     const scoreSave = async () => {
       if (guesses[currentWord - 1] == "GGGGG") {
@@ -92,7 +95,6 @@ const index = () => {
           });
         }, 2000);
       } else if (currentWord === 6) {
-        console.log("game over and lost");
         Toast.show({
           type: ALERT_TYPE.DANGER,
           title: `The word was ${wordle}`,

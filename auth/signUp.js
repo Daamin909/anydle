@@ -2,7 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "@react-native-firebase/auth";
+} from "firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const signUpWithEmail = async (email, password, name) => {
@@ -23,9 +23,6 @@ const signUpWithEmail = async (email, password, name) => {
       photoURL: pfpUrl,
     });
     await user.reload();
-    console.log("User created");
-    console.log("Display name sett to:", user.displayName);
-    console.log("profile pic: ", pfpUrl);
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;

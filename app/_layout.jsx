@@ -23,7 +23,7 @@ import {
 
 SplashScreen.preventAutoHideAsync();
 
-=const _layout = () => {
+const _layout = () => {
   const [showModalFn, setShowModalFn] = useState(() => () => {});
   const [hideModalFn, setHideModalFn] = useState(() => () => {});
   const [isSettingsVisible, setIsSettingsVisibleExternal] = useState(false);

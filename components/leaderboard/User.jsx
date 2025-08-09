@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getApp } from "@react-native-firebase/app";
-import { getAuth } from "@react-native-firebase/auth";
+import { getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const User = ({ pfpURL, name, score, rank, user_id }) => {
   const [uuid, setUuid] = useState(null);
@@ -19,7 +20,11 @@ const User = ({ pfpURL, name, score, rank, user_id }) => {
       const id = user.uid;
       setUuid(id);
     } catch (err) {
-      console.log(err, "leaderboard auth thingy");
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Error",
+        textBody: err.message,
+      });
     }
   }, []);
   return (
