@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, Animated, Easing } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Box = ({ letter, bgStyles, fgStyles }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -42,13 +43,13 @@ const styles = StyleSheet.create({
     borderColor: "#3a3a3c",
     justifyContent: "center",
     alignItems: "center",
-    width: 65,
-    height: 65,
+    width: "18.5%",
+    aspectRatio: 1,
     marginHorizontal: 5,
     backfaceVisibility: "hidden",
   },
   text: {
-    fontSize: 40,
+    fontSize: RFValue(30),
     fontFamily: "Inter_700Bold",
     color: "white",
   },

@@ -15,6 +15,7 @@ import calculateScore from "../utils/calculateScore";
 import About from "../components/info/About";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const index = () => {
   const [words, setWords] = useState([null, null, null, null, null, null]);
@@ -231,11 +232,11 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
-    margin: "3%",
+    marginBottom: "5%",
   },
   footerText: {
     color: "white",
-    fontSize: 14,
+    fontSize: RFValue(12),
     fontFamily: "Poppins_400Regular",
   },
 });

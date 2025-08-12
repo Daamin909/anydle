@@ -20,7 +20,8 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.daamin.anydle",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/branding/logo.png"
