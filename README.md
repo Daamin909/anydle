@@ -7,7 +7,7 @@
  <img src ="https://img.shields.io/badge/version-1.0.0-green.svg">
  <img src="https://img.shields.io/github/stars/daamin909/anydle?style=social?color" alt="GitHub Stars">
  <!-- <img src ="https://img.shields.io/github/deployments/daamin909/anydle/production?color=purple"> -->
- <img src ="https://hackatime-badge.hackclub.com/U07GLQY6UN4/anydle?color=red&label=Time%20Spent">
+ <img src ="https://hackatime-badge.hackclub.com/U07GLQY6UN4/anydle?color=red&label=Time%20Spent&aliases=anydle-som">
 </p>
 
 Anydle is an improved version of the famous daily game called Wordle by the New York Times. It keeps the 5-letter word guessing system, within 6 chances but adds a clean twist – **Categories**. In addition to the standard mode, you can choose from four presets : Tech, Science and Sports. When you pick a category, all possible answers relate only to that theme, making a new fun game mode. Instead of the daily word format, Anydle has an infinite word game mode – which never ends.
