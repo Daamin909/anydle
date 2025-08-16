@@ -15,12 +15,15 @@
 - ~~forgot password~~
 
 - ~~animation for word reveal~~
-- ~~profile picture uploading~~
+- ~~haptic feedback on keyboard buttons~~
 
 - enhancements
 
   - enjoying? rate our app
 
+- verify email
+- change your profile picture
+- fix the fricking forgot password design fail
 - multiplayer
   - add other users as a friend, friend requests
   - create rooms, invite friends, join rooms using code

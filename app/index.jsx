@@ -1,244 +1,115 @@
-import { StyleSheet, View, Text } from "react-native";
-import LetterBoxes from "../components/input/LetterBoxes";
-import Keyboard from "../components/input/Keyboard";
-import { useEffect, useState, useCallback, useContext } from "react";
-import evaluateGuess from "../scripts/evaluate";
-import getRandomWord from "../scripts/getRandomWord";
-import isValidWord from "../scripts/isValidWord";
-import { useAnimatedShake } from "../hooks/useAnimatedShake";
-import Settings from "../components/categories/Settings";
-import { PaperProvider } from "react-native-paper";
-import { useModal } from "../context/ModalContext";
-import { Link } from "expo-router";
-import increaseScore from "../scripts/db/increaseScore";
-import calculateScore from "../utils/calculateScore";
-import About from "../components/info/About";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ALERT_TYPE, Toast } from "react-native-alert-notification";
-import { RFValue } from "react-native-responsive-fontsize";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Button } from "react-native-paper";
+import { io } from "socket.io-client";
+import { getApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const index = () => {
-  const [words, setWords] = useState([null, null, null, null, null, null]);
-  const [guesses, setGuesses] = useState([null, null, null, null, null, null]);
-  const [currentWord, setCurrentWord] = useState(0);
-
-  const [category, setCategory] = useState("default");
-  const [wordle, setWordle] = useState(getRandomWord(category).toUpperCase());
-
-  // shake animation vars
-  const [shakenRowNumber, setShakenRowNumber] = useState(null);
-  const { shake, rStyle, isShaking } = useAnimatedShake();
-
-  // settings popup vars
-  const { setShowModalFn, setHideModalFn, setIsSettingsVisibleExternal } =
-    useModal();
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const showSettings = () => setIsSettingsVisible(true);
-  const hideSettings = () => setIsSettingsVisible(false);
-
-  // about popup vars
-  const [isAboutVisible, setIsAboutVisible] = useState(false);
+const multiplayer = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const socketRef = useRef(null);
 
   useEffect(() => {
-    const firsttime = async () => {
-      try {
-        const hasSeenPopup = await AsyncStorage.getItem("aboutShown");
-        if (!hasSeenPopup) {
-          setIsAboutVisible(true);
-          await AsyncStorage.setItem("aboutShown", "true");
-        }
-      } catch (err) {
-        Toast.show({
-          type: ALERT_TYPE.DANGER,
-          title: "Error",
-          textBody: err.message,
-        });
-      }
-    };
+    const auth = getAuth(getApp());
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
+    });
 
-    firsttime();
+    socketRef.current = io("http://192.168.29.66:3000");
+    socketRef.current.on("connect", () => {
+      console.log("Connected to server:", socketRef.current.id);
+    });
+    socketRef.current.on("pongFromServer", (msg) => {
+      console.log("Received from server:", msg);
+    });
+    return () => {
+      socketRef.current.disconnect();
+      unsubscribe();
+    };
   }, []);
 
-  useEffect(() => {
-    setShowModalFn(() => showSettings);
-    setHideModalFn(() => hideSettings);
-    setIsSettingsVisibleExternal(isSettingsVisible);
-  }, [isSettingsVisible]);
-
-  useEffect(() => {
-    setWordle(getRandomWord(category).toUpperCase());
-  }, [category]);
-
-  useEffect(() => {
-    const scoreSave = async () => {
-      if (guesses[currentWord - 1] == "GGGGG") {
-        const { score, adjective } = calculateScore(currentWord, category);
-        Toast.show({
-          type: ALERT_TYPE.SUCCESS,
-          title: adjective,
-          textBody: `+${score}`,
-          autoClose: 2500,
-        });
-        var sus;
-        const success = await increaseScore(score);
-        if (!success) {
-          sus = "Sign in to save score.";
-        } else {
-          sus = "Score Saved.";
-        }
-        setTimeout(() => {
-          resetGame();
-          Toast.show({
-            type: success ? ALERT_TYPE.INFO : ALERT_TYPE.WARNING,
-            title: sus,
-            textBody: `+${score} added!`,
-            autoClose: 2500,
-          });
-        }, 2000);
-      } else if (currentWord === 6) {
-        Toast.show({
-          type: ALERT_TYPE.DANGER,
-          title: `The word was ${wordle}`,
-          textBody: "Better luck next time!",
-          autoClose: 2500,
-        });
-        setTimeout(resetGame, 2500);
-      }
-    };
-
-    scoreSave();
-  }, [currentWord]);
-
-  const resetGame = () => {
-    setCategory("default");
-    setWordle(getRandomWord("default").toUpperCase());
-    setGuesses([null, null, null, null, null, null]);
-    setWords([null, null, null, null, null, null]);
-    setCurrentWord(0);
-  };
-
-  const handlePress = (key) => {
-    if (key == "enter") {
-      // check if less than 5 letter
-      if (words[currentWord]?.trim().length != 5) {
-        setShakenRowNumber(currentWord);
-        shake();
-        return;
-        // check if invalid word
-      } else if (!isValidWord(words[currentWord]?.trim())) {
-        setShakenRowNumber(currentWord);
-        shake();
-        return;
-      }
-
-      const guess = evaluateGuess(words[currentWord], wordle);
-      setGuesses((prev) => {
-        const updated = [...prev];
-        updated[currentWord] = guess;
-        return updated;
+  const handlePress = () => {
+    if (socketRef.current?.connected) {
+      socketRef.current.emit("singleplayerMatchup", {
+        looking_for_matchup: true,
+        uid: user.uid,
+        timestamp: new Date(),
+        email: user.email,
+        username: user.displayName,
       });
-      if (currentWord == 6) {
-        return;
-      }
-      setCurrentWord((prev) => prev + 1);
-      return;
-    }
-
-    if (key == "backspace") {
-      if (words[currentWord]) {
-        // check if a letter to erase even exists
-        setWords((prev) => {
-          let updated = [...prev];
-          const newWord = words[currentWord].trim().slice(0, -1);
-          updated[currentWord] = newWord + " ".repeat(5 - newWord.length);
-          return updated;
-        });
-      }
-      return;
-    }
-
-    if (!words[currentWord]) {
-      // check if the boxes are empty, and add the first letter
-      setWords((prev) => {
-        let updated = [...prev];
-        updated[currentWord] = `${key}    `;
-        return updated;
-      });
-    } else if (words[currentWord].trim().length == 5) {
-      // check if max letter have been reached
-      return;
+      setLoading(true);
     } else {
-      // just append words if they alr exist
-      setWords((prev) => {
-        let updated = [...prev];
-        const newWord = words[currentWord].trim() + key;
-        updated[currentWord] = newWord + " ".repeat(5 - newWord.length);
-        return updated;
-      });
+      console.log("Not connected to server yet");
     }
   };
 
   return (
-    <PaperProvider>
-      <View style={styles.container}>
-        <LetterBoxes
-          words={words}
-          setWords={setWords}
-          guesses={guesses}
-          setGuesses={setGuesses}
-          rStyle={rStyle}
-          shakenRowNumber={shakenRowNumber}
-        />
-        <Keyboard
-          handlePress={handlePress}
-          words={words}
-          currentWord={currentWord}
-          guesses={guesses}
-        />
-        <Settings
-          hideSettings={hideSettings}
-          isSettingsVisible={isSettingsVisible}
-          setCategory={setCategory}
-        />
-        <About
-          isAboutVisible={isAboutVisible}
-          setIsAboutVisible={setIsAboutVisible}
-        />
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2025 </Text>
-          <Link href="https://daamin.tech" style={styles.footerText}>
-            Daamin Ashai
-          </Link>
-          <Text style={styles.footerText}> · </Text>
-          <Link href="/privacy" style={styles.footerText}>
-            Privacy Policy
-          </Link>
+    <View style={styles.container}>
+      {!loading && (
+        <>
+          <Text style={styles.heading}>multiplayer</Text>
+          {user && (
+            <Button mode="contained-tonal" onPress={handlePress}>
+              Start matchmaking
+            </Button>
+          )}
+          {!user && (
+            <Text style={styles.text}>Sign in to play multiplayer</Text>
+          )}
+        </>
+      )}
+      {loading && (
+        <View style={styles.overlay}>
+          <Image
+            style={styles.lottie}
+            source={require("../assets/loading.gif")}
+          />
         </View>
-      </View>
-    </PaperProvider>
+      )}
+    </View>
   );
 };
 
+export default multiplayer;
+
+const { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
+  lottie: {
+    width: 200,
+    height: 200,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width,
+    height,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
+  },
   container: {
     backgroundColor: "#121213",
     flex: 1,
-    display: "flex",
-    justifyContent: "space-between",
-    padding: 20,
-    paddingTop: 40,
+    gap: 10,
+    alignItems: "center",
   },
-  footer: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "row",
-    marginBottom: "5%",
-  },
-  footerText: {
+  heading: {
     color: "white",
-    fontSize: RFValue(12),
-    fontFamily: "Poppins_400Regular",
+    fontSize: 30,
+    fontFamily: "Inter_500Medium",
+    textTransform: "capitalize",
+    textAlign: "center",
+    margin: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 18,
+    fontFamily: "Inter_400Regular",
+    textTransform: "capitalize",
+    textAlign: "center",
+    margin: 10,
   },
 });
-
-export default index;

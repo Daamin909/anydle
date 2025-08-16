@@ -72,6 +72,10 @@ const _layout = () => {
                   borderBottomWidth: 0.5,
                   borderColor: "white",
                 },
+                headerTitleStyle: {
+                  fontFamily: "Poppins_400Regular",
+                  marginTop: 5,
+                },
                 headerTintColor: "white",
                 drawerLabelStyle: {
                   color: "white",
@@ -84,28 +88,35 @@ const _layout = () => {
                 name="index"
                 options={{
                   drawerLabel: "Home",
-                  title: "",
+                  title: "Anydle",
                 }}
               />
               <Drawer.Screen
                 name="leaderboard"
                 options={{
                   drawerLabel: "Leaderboard",
-                  title: "",
+                  title: "Leaderboard",
+                }}
+              />
+              <Drawer.Screen
+                name="multiplayer"
+                options={{
+                  drawerLabel: "Multiplayer",
+                  title: "Multiplayer",
                 }}
               />
               <Drawer.Screen
                 name="account"
                 options={{
                   drawerLabel: "My Account",
-                  title: "",
+                  title: "My Account",
                 }}
               />
               <Drawer.Screen
                 name="privacy"
                 options={{
                   drawerLabel: "Privacy Policy",
-                  title: "",
+                  title: "Privacy Policy",
                 }}
               />
             </Drawer>

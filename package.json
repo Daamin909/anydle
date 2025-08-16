@@ -22,6 +22,7 @@
     "expo-constants": "~17.1.7",
     "expo-doctor": "^1.13.5",
     "expo-font": "~13.3.2",
+    "expo-haptics": "~14.1.4",
     "expo-image-picker": "~16.1.4",
     "expo-linking": "~7.1.7",
     "expo-router": "~5.1.4",
@@ -35,12 +36,14 @@
     "react-native-alert-notification": "^0.4.2",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-haptic-feedback": "^2.3.3",
     "react-native-paper": "^5.14.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0",
+    "socket.io-client": "^4.8.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {
