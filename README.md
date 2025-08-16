@@ -48,3 +48,6 @@ App will also be published to the Play Store soon.
 ## License
 
 [CC BY-NC 4.0-Modified](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
+
+## Credits
+Huge thank you to [@Dawar909](http://github.com/dawar909) for making the wonderful logo.
