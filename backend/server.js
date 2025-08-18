@@ -8,7 +8,6 @@ var serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-singleplayerMatchup.attachMatchupListener();
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +18,7 @@ const io = new Server(server, {
   },
 });
 
+singleplayerMatchup.attachMatchupListener(io);
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 

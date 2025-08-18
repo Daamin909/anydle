@@ -4,6 +4,7 @@ import { Button } from "react-native-paper";
 import { io } from "socket.io-client";
 import { getApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const multiplayer = () => {
   const [user, setUser] = useState(null);
@@ -23,6 +24,16 @@ const multiplayer = () => {
     socketRef.current.on("pongFromServer", (msg) => {
       console.log("Received from server:", msg);
     });
+
+    socketRef.current.on("matchInvitation", (data) => {
+      console.log("You got an invitation!", data);
+      setLoading(false);
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "match found",
+        textBody: "we found a match!",
+      });
+    });
     return () => {
       socketRef.current.disconnect();
       unsubscribe();
@@ -37,6 +48,7 @@ const multiplayer = () => {
         timestamp: new Date(),
         email: user.email,
         username: user.displayName,
+        socketID: socketRef.current.id,
       });
       setLoading(true);
     } else {
