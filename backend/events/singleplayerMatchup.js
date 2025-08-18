@@ -41,15 +41,74 @@ const attachMatchupListener = async (io) => {
 };
 const sendInvitations = (pairs, io) => {
   pairs.forEach((pair) => {
-    if (!io) return null;
-    io.to(pair[0].socketID).emit("matchInvitation", {
-      opponent: { uid: pair[1].uid, email: pair[1].email },
-    });
-    io.to(pair[1].socketID).emit("matchInvitation", {
-      opponent: { uid: pair[0].uid, email: pair[0].email },
+    const [player1, player2] = pair;
+    const receivedOrNot = {
+      [player1.uid]: null,
+      [player2.uid]: null,
+    };
+
+    [player1, player2].forEach((player, idx) => {
+      const opponent = idx === 0 ? player2 : player1;
+
+      io.to(player.socketID)
+        .timeout(10000) // wait 10s max
+        .emit(
+          "matchFound",
+          {
+            opponentEmail: opponent.email,
+            opponentUID: opponent.uid,
+          },
+          (err, response) => {
+            if (err) {
+              console.log("did not receive");
+              receivedOrNot[player.uid] = "no";
+            } else {
+              console.log("received");
+              receivedOrNot[player.uid] = response.accepted ? "yes" : "no";
+            }
+            if (
+              receivedOrNot[player1.uid] !== null &&
+              receivedOrNot[player2.uid] !== null
+            ) {
+              if (
+                receivedOrNot[player1.uid] === "yes" &&
+                receivedOrNot[player2.uid] === "yes"
+              ) {
+                console.log("both received it ");
+                invitationAccepted(player1, player2);
+              } else {
+                console.log("either one did not receive it");
+                invitationTimeOut(
+                  player1,
+                  player2,
+                  receivedOrNot[player1.uid],
+                  receivedOrNot[player2.uid]
+                );
+              }
+            }
+          }
+        );
     });
   });
 };
+
+const invitationTimeOut = async (player1, player2, p1, p2) => {
+  const app = getApp();
+  const db = getFirestore(app);
+  if (p1 !== "yes") {
+    await db.collection("looking_for_matchup").doc(player1.uid).delete();
+  }
+  if (p2 !== "yes") {
+    await db.collection("looking_for_matchup").doc(player2.uid).delete();
+  }
+};
+const invitationAccepted = async (player1, player2) => {
+  const app = getApp();
+  const db = getFirestore(app);
+  await db.collection("looking_for_matchup").doc(player1.uid).delete();
+  await db.collection("looking_for_matchup").doc(player2.uid).delete();
+};
+
 const makePairs = (queue) => {
   let pairs = [];
   let leftovers = [];

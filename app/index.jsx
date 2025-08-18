@@ -25,7 +25,7 @@ const multiplayer = () => {
       console.log("Received from server:", msg);
     });
 
-    socketRef.current.on("matchInvitation", (data) => {
+    socketRef.current.on("matchFound", (data, ack) => {
       console.log("You got an invitation!", data);
       setLoading(false);
       Toast.show({
@@ -33,6 +33,7 @@ const multiplayer = () => {
         title: "match found",
         textBody: "we found a match!",
       });
+      ack({ accepted: accept });
     });
     return () => {
       socketRef.current.disconnect();
