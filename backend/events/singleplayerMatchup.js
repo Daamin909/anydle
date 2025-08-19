@@ -1,5 +1,6 @@
 const { getApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
+const default_words = require("../assets/json/default.json");
 
 const singleplayerMatchup = async (msg) => {
   const app = getApp();
@@ -39,57 +40,58 @@ const attachMatchupListener = async (io) => {
       sendInvitations(pairs.pairs, io);
     });
 };
-const sendInvitations = (pairs, io) => {
-  pairs.forEach((pair) => {
+const sendInvitations = async (pairs, io) => {
+  for (const pair of pairs) {
     const [player1, player2] = pair;
     const receivedOrNot = {
       [player1.uid]: null,
       [player2.uid]: null,
     };
 
-    [player1, player2].forEach((player, idx) => {
-      const opponent = idx === 0 ? player2 : player1;
+    const promises = [player1, player2].map((player, id) => {
+      const opponent = id === 0 ? player2 : player1;
+      const socket = io.sockets.sockets.get(player.socketID);
 
-      io.to(player.socketID)
-        .timeout(10000) // wait 10s max
-        .emit(
-          "matchFound",
-          {
-            opponentEmail: opponent.email,
-            opponentUID: opponent.uid,
-          },
-          (err, response) => {
-            if (err) {
-              console.log("did not receive");
-              receivedOrNot[player.uid] = "no";
-            } else {
-              console.log("received");
-              receivedOrNot[player.uid] = response.accepted ? "yes" : "no";
-            }
-            if (
-              receivedOrNot[player1.uid] !== null &&
-              receivedOrNot[player2.uid] !== null
-            ) {
-              if (
-                receivedOrNot[player1.uid] === "yes" &&
-                receivedOrNot[player2.uid] === "yes"
-              ) {
-                console.log("both received it ");
-                invitationAccepted(player1, player2);
-              } else {
-                console.log("either one did not receive it");
-                invitationTimeOut(
-                  player1,
-                  player2,
-                  receivedOrNot[player1.uid],
-                  receivedOrNot[player2.uid]
-                );
-              }
-            }
-          }
-        );
+      if (!socket) {
+        console.log(`Socket not found for ${player.email}`);
+        receivedOrNot[player.uid] = "no";
+        return Promise.resolve();
+      }
+      return socket
+        .timeout(1000)
+        .emitWithAck("matchFound", {
+          opponentEmail: opponent.email,
+          opponentUID: opponent.uid,
+        })
+        .then((response) => {
+          console.log(`${player.email} responded`);
+          receivedOrNot[player.uid] = response.accepted ? "yes" : "no";
+        })
+        .catch((err) => {
+          console.error(err.message);
+          console.log(`${player.email} did not respond`);
+          receivedOrNot[player.uid] = "no";
+        });
     });
-  });
+
+    await Promise.all(promises);
+
+    if (
+      receivedOrNot[player1.uid] === "yes" &&
+      receivedOrNot[player2.uid] === "yes"
+    ) {
+      console.log("both received it");
+      await invitationAccepted(player1, player2, io);
+    } else {
+      console.log("some one did not receive it");
+      await invitationTimeOut(
+        player1,
+        player2,
+        receivedOrNot[player1.uid],
+        receivedOrNot[player2.uid]
+      );
+    }
+  }
 };
 
 const invitationTimeOut = async (player1, player2, p1, p2) => {
@@ -102,11 +104,40 @@ const invitationTimeOut = async (player1, player2, p1, p2) => {
     await db.collection("looking_for_matchup").doc(player2.uid).delete();
   }
 };
-const invitationAccepted = async (player1, player2) => {
+const invitationAccepted = async (player1, player2, io) => {
   const app = getApp();
   const db = getFirestore(app);
+
+  const word = pickRandomWords();
+
+  const matchID = db.collection("matches").doc().id;
+  await db
+    .collection("matches")
+    .doc(matchID)
+    .set({
+      id: matchID,
+      players: [player1.uid, player2.uid],
+      sockets: [player1.socketID, player2.socketID],
+      words: word,
+      guesses: {
+        [player1.uid]: [],
+        [player2.uid]: [],
+      },
+      status: "active",
+      createdAt: new Date(),
+    });
+
   await db.collection("looking_for_matchup").doc(player1.uid).delete();
   await db.collection("looking_for_matchup").doc(player2.uid).delete();
+
+  io.to(player1.socketID).socketsJoin(matchID);
+  io.to(player2.socketID).socketsJoin(matchID);
+  io.to(matchID).emit("matchStarted", {
+    matchID,
+    opponent1: { uid: player1.uid, email: player1.email },
+    opponent2: { uid: player2.uid, email: player2.email },
+    wordLength: word.length,
+  });
 };
 
 const makePairs = (queue) => {
@@ -129,4 +160,16 @@ const makePairs = (queue) => {
   }
   return { pairs, leftovers };
 };
+
+const pickRandomWords = () => {
+  let wordlist = [...default_words];
+  let words = [];
+  for (let x = 0; x <= 4; x++) {
+    const word = wordlist[Math.floor(Math.random() * wordlist.length)];
+    words.push(word);
+    wordlist.splice(wordlist.indexOf(word), 1);
+  }
+  return words;
+};
+
 module.exports = { singleplayerMatchup, attachMatchupListener };

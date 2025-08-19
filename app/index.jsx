@@ -1,4 +1,11 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "react-native-paper";
 import { io } from "socket.io-client";
@@ -10,7 +17,6 @@ const multiplayer = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const socketRef = useRef(null);
-
   useEffect(() => {
     const auth = getAuth(getApp());
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -33,7 +39,7 @@ const multiplayer = () => {
         title: "match found",
         textBody: "we found a match!",
       });
-      ack({ accepted: accept });
+      ack({ accepted: true });
     });
     return () => {
       socketRef.current.disconnect();
