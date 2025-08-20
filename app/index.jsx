@@ -12,10 +12,14 @@ import { io } from "socket.io-client";
 import { getApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import LetterBoxes from "../components/multiplayer/LetterBoxes";
+import Keyboard from "../components/multiplayer/Keyboard";
 
 const multiplayer = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isInGame, setIsInGame] = useState(false);
+  const [gameInfo, setGameInfo] = useState(false);
   const socketRef = useRef(null);
   useEffect(() => {
     const auth = getAuth(getApp());
@@ -23,23 +27,24 @@ const multiplayer = () => {
       setUser(user);
     });
 
-    socketRef.current = io("http://192.168.29.66:3000");
+    socketRef.current = io("http://192.168.29.66:1238");
     socketRef.current.on("connect", () => {
       console.log("Connected to server:", socketRef.current.id);
     });
-    socketRef.current.on("pongFromServer", (msg) => {
-      console.log("Received from server:", msg);
-    });
 
     socketRef.current.on("matchFound", (data, ack) => {
-      console.log("You got an invitation!", data);
-      setLoading(false);
       Toast.show({
         type: ALERT_TYPE.SUCCESS,
         title: "match found",
         textBody: "we found a match!",
       });
       ack({ accepted: true });
+    });
+
+    socketRef.current.on("matchStarted", (data) => {
+      setGameInfo(data);
+      setIsInGame(true);
+      setLoading(false);
     });
     return () => {
       socketRef.current.disconnect();
@@ -65,7 +70,13 @@ const multiplayer = () => {
 
   return (
     <View style={styles.container}>
-      {!loading && (
+      {isInGame && (
+        <>
+          <LetterBoxes words={gameInfo?.words} guesses={gameInfo?.guesses} />
+          <Keyboard words={gameInfo?.words} guesses={gameInfo?.guesses} />
+        </>
+      )}
+      {!loading && !isInGame && (
         <>
           <Text style={styles.heading}>multiplayer</Text>
           {user && (
@@ -114,6 +125,10 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 10,
     alignItems: "center",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: 20,
+    paddingTop: 40,
   },
   heading: {
     color: "white",

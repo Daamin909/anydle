@@ -108,7 +108,7 @@ const invitationAccepted = async (player1, player2, io) => {
   const app = getApp();
   const db = getFirestore(app);
 
-  const word = pickRandomWords();
+  const words = pickRandomWords();
 
   const matchID = db.collection("matches").doc().id;
   await db
@@ -118,7 +118,7 @@ const invitationAccepted = async (player1, player2, io) => {
       id: matchID,
       players: [player1.uid, player2.uid],
       sockets: [player1.socketID, player2.socketID],
-      words: word,
+      words: words,
       guesses: {
         [player1.uid]: [],
         [player2.uid]: [],
@@ -136,7 +136,11 @@ const invitationAccepted = async (player1, player2, io) => {
     matchID,
     opponent1: { uid: player1.uid, email: player1.email },
     opponent2: { uid: player2.uid, email: player2.email },
-    wordLength: word.length,
+    guesses: {
+      [player1.uid]: [],
+      [player2.uid]: [],
+    },
+    words: words,
   });
 };
 
