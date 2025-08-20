@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  container: { backgroundColor: "#121213", flex: 1 },
+  container: { backgroundColor: "#121213", flex: 1, paddingHorizontal: 5 },
   heading: {
     color: "white",
     fontFamily: "Inter_700Bold",
