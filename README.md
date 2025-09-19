@@ -17,6 +17,11 @@ Anydle is an improved version of the famous daily game called Wordle by the New 
 
 Insert gif or link to demo -->
 
+
+
+https://github.com/user-attachments/assets/8f47a7d4-b113-49d5-8638-fc28f3af5bb2
+
+
 ## Screenshots
 
 | ![Screenshot 1](assets/readme/1.png) | ![Screenshot 8](assets/readme/8.png) |
