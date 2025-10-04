@@ -99,13 +99,6 @@ const _layout = () => {
                 }}
               />
               <Drawer.Screen
-                name="multiplayer"
-                options={{
-                  drawerLabel: "Multiplayer",
-                  title: "Multiplayer",
-                }}
-              />
-              <Drawer.Screen
                 name="account"
                 options={{
                   drawerLabel: "My Account",
