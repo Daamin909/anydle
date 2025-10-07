@@ -21,7 +21,7 @@
       "edgeToEdgeEnabled": true,
       "package": "com.daamin.anydle",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 2
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/branding/logo.png"
